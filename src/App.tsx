@@ -212,7 +212,7 @@ function App() {
       let errorMessage = err?.message || "An unexpected error occurred while processing the image.";
       
       if (!window.crossOriginIsolated) {
-        errorMessage = "Security Error: Cross-Origin Isolation is disabled. Since this app runs completely inside your browser using WebAssembly AI, it requires a secure context (HTTPS) and specific headers. Please make sure you are accessing the secure 'https://' version of your link (e.g. ngrok HTTPS link) and that your browser supports SharedArrayBuffer.";
+        errorMessage = "Security Error: Cross-Origin Isolation is disabled. This browser application runs client-side AI using WebAssembly, which requires a secure context (HTTPS or localhost). If you are accessing this over a local network IP (e.g., http://192.168.x.x:5173), please use localhost on your computer, or host the site with HTTPS/SSL to enable the required security features.";
       } else if (errorMessage.toLowerCase().includes("fetch") || errorMessage.toLowerCase().includes("failed to fetch")) {
         errorMessage = "Download Error: Failed to fetch the AI model files. This usually happens if your connection is slow, blocks CDN assets, or if the server had a timeout. Please reload the page and try again on a stable connection.";
       }
