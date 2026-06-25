@@ -68,7 +68,7 @@ if (typeof window === 'undefined') {
         const coi = {
             shouldRegister: () => !reloadedBySelf,
             shouldDeregister: () => false,
-            coepCredentialless: () => true,
+            coepCredentialless: () => false,
             coepDegrade: () => true,
             doReload: () => window.location.reload(),
             quiet: false,
@@ -121,7 +121,10 @@ if (typeof window === 'undefined') {
             return;
         }
 
-        n.serviceWorker.register(window.document.currentScript.src).then(
+        const currentScript = window.document.currentScript || window.document.querySelector('script[src*="coi-serviceworker"]');
+        const scriptUrl = currentScript ? currentScript.src : '/coi-serviceworker.js';
+
+        n.serviceWorker.register(scriptUrl).then(
             (registration) => {
                 !coi.quiet && console.log("COOP/COEP Service Worker registered", registration.scope);
 
