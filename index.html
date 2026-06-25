@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        window.location.href = window.location.href.replace('http:', 'https:');
+      }
+    </script>
     <title>ClearBG Pro - Free Private Background Remover</title>
     <meta name="description" content="ClearBG Pro removes backgrounds from images instantly and automatically. 100% private, processing entirely in the browser using WebAssembly. Export in Full HD, WebP, JPEG, PNG, and adjust compression." />
     <!-- Google Fonts Poppins -->
