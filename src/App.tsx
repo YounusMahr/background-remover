@@ -182,7 +182,9 @@ function App() {
     setProgressMessage("Downloading AI model (~8MB on first run)...");
     
     try {
+      const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
       const config = {
+        model: (isMobile ? 'isnet_quint8' : 'isnet_fp16') as any,
         progress: (key: string, current: number, total: number) => {
           const percentage = Math.round((current / total) * 100);
           setProgress(percentage);
