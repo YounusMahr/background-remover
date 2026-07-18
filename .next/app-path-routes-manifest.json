@@ -6,13 +6,13 @@
   "/robots.txt/route": "/robots.txt",
   "/sitemap.xml/route": "/sitemap.xml",
   "/blog/[slug]/page": "/blog/[slug]",
+  "/contact/page": "/contact",
   "/admin/page": "/admin",
   "/about/page": "/about",
-  "/contact/page": "/contact",
   "/cookies/page": "/cookies",
   "/disclaimer/page": "/disclaimer",
-  "/privacy/page": "/privacy",
   "/terms/page": "/terms",
+  "/privacy/page": "/privacy",
   "/blog/page": "/blog",
   "/page": "/"
 }

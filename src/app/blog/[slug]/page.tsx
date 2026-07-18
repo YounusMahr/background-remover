@@ -144,7 +144,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <div className="blog-post-footer">
         <h3>Share & Reference</h3>
-        <p>This article is built strictly for educational and informational purposes. Reference URI: <a href={`https://bgcleaner.online/blog/${post.slug}`}>https://bgcleaner.online/blog/{post.slug}</a></p>
+        <p>This article is built strictly for educational and informational purposes. Reference URI: <a href={`${SITE_URL}/blog/${post.slug}`}>{`${SITE_URL}/blog/${post.slug}`}</a></p>
         <div className="footer-action-row">
           <Link href="/blog" className="back-to-blog-btn">← View More Articles</Link>
         </div>
