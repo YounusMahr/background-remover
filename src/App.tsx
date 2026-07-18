@@ -622,6 +622,32 @@ function App() {
                   <div style={{ maxWidth: '640px', width: '100%', margin: '2rem auto 0' }}>
                     <AdUnit client={settings.googleAdsenseClientId} slot="home-bottom" format="auto" />
                   </div>
+
+                  {/* How to Use Section */}
+                  <section className="how-to-use-section">
+                    <h2>How to Use ClearBG Pro</h2>
+                    <p className="section-subtitle">Remove backgrounds from your images locally in three simple steps.</p>
+                    
+                    <div className="steps-grid">
+                      <div className="step-card">
+                        <div className="step-number">01</div>
+                        <h3>Upload Image</h3>
+                        <p>Drag and drop your image, select from your local drive, or pick a sample photo to start. We support PNG, JPEG, and WebP formats.</p>
+                      </div>
+                      
+                      <div className="step-card">
+                        <div className="step-number">02</div>
+                        <h3>AI Processing</h3>
+                        <p>Our client-side neural networks process the image instantly in your browser window. Your private files never upload to external servers.</p>
+                      </div>
+                      
+                      <div className="step-card">
+                        <div className="step-number">03</div>
+                        <h3>Customize & Download</h3>
+                        <p>Adjust edge defringing, add solid background colors or presets, compress the output, and export in full high-definition quality.</p>
+                      </div>
+                    </div>
+                  </section>
                 </>
               )}
 

@@ -20,8 +20,8 @@ export const BlogList: React.FC<BlogListProps> = ({ posts }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  // Extract all unique tags
-  const allTags = Array.from(new Set(posts.flatMap(post => post.tags || [])));
+  // Hardcoded main categories as requested
+  const mainTags = ['AI Technology', 'E-commerce', 'Web Performance', 'Design & Branding'];
 
   // Filter posts
   const filteredPosts = posts.filter(post => {
@@ -38,7 +38,7 @@ export const BlogList: React.FC<BlogListProps> = ({ posts }) => {
     <div className="blog-container">
       <div className="blog-hero">
         <h1>Resources & Insights</h1>
-        <p>Expert articles on tech, privacy, taxes, and optimization.</p>
+        <p>Expert articles on tech, privacy, and optimization.</p>
       </div>
 
       <div className="blog-controls">
@@ -59,7 +59,7 @@ export const BlogList: React.FC<BlogListProps> = ({ posts }) => {
           >
             All Topics
           </button>
-          {allTags.map(tag => (
+          {mainTags.map(tag => (
             <button
               key={tag}
               className={`tag-filter-btn ${selectedTag === tag ? 'active' : ''}`}
