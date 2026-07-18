@@ -1,9 +1,71 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Routes, Route, Link, NavLink, useLocation } from 'react-router-dom';
 import { ImageUploader } from './components/ImageUploader';
 import { ComparisonSlider } from './components/ComparisonSlider';
 import { EditorPanel } from './components/EditorPanel';
 import { removeBackground } from '@imgly/background-removal';
 import { AlertTriangle, HelpCircle } from 'lucide-react';
+
+// Data fallback imports
+import initialPosts from './data/posts.json';
+import initialSettings from './data/settings.json';
+
+// Pages components
+import { BlogList } from './components/BlogList';
+import { BlogPost } from './components/BlogPost';
+import { AboutUs } from './components/AboutUs';
+import { ContactUs } from './components/ContactUs';
+import { PrivacyPolicy } from './components/PrivacyPolicy';
+import { TermsOfService } from './components/TermsOfService';
+import { Disclaimer } from './components/Disclaimer';
+import { CookiePolicy } from './components/CookiePolicy';
+import { AdminDashboard } from './components/AdminDashboard';
+import { SEO } from './components/SEO';
+import { CookieConsent } from './components/CookieConsent';
+import { NotFound } from './components/NotFound';
+import { AdUnit } from './components/AdUnit';
+
+const getSeoDetails = (pathname: string, posts: any[]) => {
+  const defaultTitle = "ClearBG Pro - Free Private Background Remover";
+  const defaultDesc = "ClearBG Pro removes backgrounds from images instantly and automatically. 100% private, processing entirely in the browser using WebAssembly. Export in Full HD, WebP, JPEG, PNG.";
+  
+  if (pathname === '/') {
+    return { title: defaultTitle, description: defaultDesc };
+  }
+  if (pathname === '/blog') {
+    return { title: "Blog & Resources - ClearBG Pro", description: "Read the latest tips, tricks, and expert resources on image editing, photo optimization, taxes, and software workflows." };
+  }
+  if (pathname.startsWith('/blog/')) {
+    const slug = pathname.replace('/blog/', '');
+    const post = posts.find(p => p.slug === slug);
+    return { 
+      title: post ? `${post.title} - ClearBG Pro` : "Article - ClearBG Pro", 
+      description: post ? post.summary : defaultDesc 
+    };
+  }
+  if (pathname === '/about') {
+    return { title: "About Us - ClearBG Pro", description: "Learn about the client-side AI technology powering ClearBG Pro and our commitment to absolute data privacy." };
+  }
+  if (pathname === '/contact') {
+    return { title: "Contact Us - ClearBG Pro", description: "Get in touch with the ClearBG Pro support and business relations team for any inquiries or bug reports." };
+  }
+  if (pathname === '/privacy') {
+    return { title: "Privacy Policy - ClearBG Pro", description: "Read our comprehensive privacy policy outlining our client-side storage policies and compliance parameters." };
+  }
+  if (pathname === '/terms') {
+    return { title: "Terms of Service - ClearBG Pro", description: "Read the terms of use, licensing, and limitations of liability for ClearBG Pro." };
+  }
+  if (pathname === '/disclaimer') {
+    return { title: "Disclaimer - ClearBG Pro", description: "View our general service disclaimers and professional financial/tax content advisory guidelines." };
+  }
+  if (pathname === '/cookies') {
+    return { title: "Cookie Policy - ClearBG Pro", description: "Read about how cookies, local sessions, and tracking pixels are configured on our utility platform." };
+  }
+  if (pathname === '/admin') {
+    return { title: "Admin Portal - ClearBG Pro", description: "Access the administrator dashboard to write articles and manage site scripts." };
+  }
+  return { title: defaultTitle, description: defaultDesc };
+};
 
 const applyEdgeDefringe = async (blob: Blob): Promise<Blob> => {
   try {
@@ -99,6 +161,12 @@ const applyEdgeDefringe = async (blob: Blob): Promise<Blob> => {
 };
 
 function App() {
+  const location = useLocation();
+  
+  // Blog and Settings state
+  const [posts, setPosts] = useState<any[]>(initialPosts);
+  const [settings, setSettings] = useState<any>(initialSettings);
+
   // File states
   const [originalFile, setOriginalFile] = useState<File | null>(null);
   const [originalUrl, setOriginalUrl] = useState<string>('');
@@ -110,6 +178,68 @@ function App() {
   const [progressMessage, setProgressMessage] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [viewMode, setViewMode] = useState<'slider' | 'side-by-side' | 'only-processed'>('slider');
+
+  // Load dynamically from Local dev API if running in localhost
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const postsRes = await fetch('/api/posts');
+        if (postsRes.ok) {
+          const data = await postsRes.json();
+          setPosts(data);
+        }
+      } catch (e) {
+        console.log('Using static posts configuration');
+      }
+
+      try {
+        const settingsRes = await fetch('/api/settings');
+        if (settingsRes.ok) {
+          const data = await settingsRes.json();
+          setSettings(data);
+        }
+      } catch (e) {
+        console.log('Using static settings configuration');
+      }
+    };
+    loadData();
+  }, []);
+
+  // Inject Google Analytics & Google Adsense tags
+  useEffect(() => {
+    if (settings.googleAnalyticsId) {
+      const gaId = settings.googleAnalyticsId;
+      if (!document.getElementById('google-analytics-script')) {
+        const script1 = document.createElement('script');
+        script1.id = 'google-analytics-script';
+        script1.async = true;
+        script1.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+        document.head.appendChild(script1);
+
+        const script2 = document.createElement('script');
+        script2.id = 'google-analytics-init';
+        script2.innerHTML = `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${gaId}');
+        `;
+        document.head.appendChild(script2);
+      }
+    }
+
+    if (settings.googleAdsenseClientId) {
+      const pubId = settings.googleAdsenseClientId;
+      if (!document.getElementById('google-adsense-script')) {
+        const adScript = document.createElement('script');
+        adScript.id = 'google-adsense-script';
+        adScript.async = true;
+        adScript.crossOrigin = 'anonymous';
+        adScript.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${pubId}`;
+        document.head.appendChild(adScript);
+      }
+    }
+  }, [settings]);
 
   // Background configurations
   const [backgroundType, setBackgroundType] = useState<'transparent' | 'solid' | 'gradient' | 'image'>('transparent');
@@ -390,19 +520,49 @@ function App() {
     return {};
   };
 
+  const getActivePost = (pathname: string, postsList: any[]) => {
+    if (pathname.startsWith('/blog/')) {
+      const slug = pathname.replace('/blog/', '');
+      return postsList.find(p => p.slug === slug);
+    }
+    return undefined;
+  };
+  const activePost = getActivePost(location.pathname, posts);
+  const seo = getSeoDetails(location.pathname, posts);
+
   return (
     <div className={`app-container ${processedUrl || isProcessing ? 'editor-active' : ''}`}>
+      <SEO title={seo.title} description={seo.description} siteUrl={settings.siteUrl} post={activePost} />
+      
       {/* Premium Header */}
       <header className="app-header">
-        <div className="logo-container">
-          <svg className="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-            <path d="m14 10-4 4"/>
-            <path d="m10 10 4 4"/>
-          </svg>
-          <span className="logo-text">ClearBG</span>
-          <span className="logo-badge">Pro</span>
-        </div>
+        <Link to="/" style={{ textDecoration: 'none' }}>
+          <div className="logo-container">
+            <svg className="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+              <path d="m14 10-4 4"/>
+              <path d="m10 10 4 4"/>
+            </svg>
+            <span className="logo-text">ClearBG</span>
+            <span className="logo-badge">Pro</span>
+          </div>
+        </Link>
+        
+        <nav className="header-nav">
+          <NavLink to="/" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`} end>
+            Remover
+          </NavLink>
+          <NavLink to="/blog" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+            Blog
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+            About
+          </NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `header-nav-link ${isActive ? 'active' : ''}`}>
+            Contact
+          </NavLink>
+        </nav>
+        
         <div className="privacy-badge">
           <div className="privacy-dot" />
           <span>AI-Powered</span>
@@ -424,104 +584,143 @@ function App() {
           </div>
         )}
 
-        {/* 1. Loading/Processing State */}
-        {isProcessing && (
-          <div className="processing-container">
-            <div className="processing-card">
-              <div className="scanner-preview-box">
-                {originalUrl ? (
-                  <img src={originalUrl} alt="Original uploading file preview" />
-                ) : (
-                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
-                    <HelpCircle size={48} />
+        <Routes>
+          <Route path="/" element={
+            <>
+              {/* 1. Loading/Processing State */}
+              {isProcessing && (
+                <div className="processing-container">
+                  <div className="processing-card">
+                    <div className="scanner-preview-box">
+                      {originalUrl ? (
+                        <img src={originalUrl} alt="Original uploading file preview" />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)' }}>
+                          <HelpCircle size={48} />
+                        </div>
+                      )}
+                      <div className="scanner-line" />
+                    </div>
+                    
+                    <div className="processing-info">
+                      <p className="processing-title">Analyzing Image Structure</p>
+                      <p className="processing-subtitle">{progressMessage}</p>
+                    </div>
+
+                    <div className="progress-track">
+                      <div className="progress-fill" style={{ width: `${progress}%` }} />
+                    </div>
+                    <span className="progress-percent">{progress}%</span>
                   </div>
-                )}
-                <div className="scanner-line" />
-              </div>
-              
-              <div className="processing-info">
-                <p className="processing-title">Analyzing Image Structure</p>
-                <p className="processing-subtitle">{progressMessage}</p>
-              </div>
+                </div>
+              )}
 
-              <div className="progress-track">
-                <div className="progress-fill" style={{ width: `${progress}%` }} />
-              </div>
-              <span className="progress-percent">{progress}%</span>
-            </div>
-          </div>
-        )}
+              {/* 2. Upload Prompt State */}
+              {!isProcessing && !processedUrl && (
+                <>
+                  <ImageUploader onImageSelected={handleImageSelected} />
+                  <div style={{ maxWidth: '640px', width: '100%', margin: '2rem auto 0' }}>
+                    <AdUnit client={settings.googleAdsenseClientId} slot="home-bottom" format="auto" />
+                  </div>
+                </>
+              )}
 
-        {/* 2. Upload Prompt State */}
-        {!isProcessing && !processedUrl && (
-          <ImageUploader onImageSelected={handleImageSelected} />
-        )}
+              {/* 3. Editing Workspace State */}
+              {!isProcessing && processedUrl && originalFile && (
+                <div className="workspace-editor">
+                  {/* Viewport for slider comparison */}
+                  <div className="editor-viewport">
+                    <ComparisonSlider 
+                      originalUrl={originalUrl} 
+                      processedUrl={processedUrl} 
+                      backgroundStyle={getBackgroundStyle()}
+                      viewMode={viewMode}
+                    />
+                    
+                    {/* Bottom toggle actions */}
+                    <div className="preview-controls-row">
+                      <button 
+                        className={`preview-action-btn ${viewMode === 'slider' ? 'active' : ''}`}
+                        onClick={() => setViewMode('slider')}
+                      >
+                        Slider Compare
+                      </button>
+                      <button 
+                        className={`preview-action-btn ${viewMode === 'side-by-side' ? 'active' : ''}`}
+                        onClick={() => setViewMode('side-by-side')}
+                      >
+                        Side by Side
+                      </button>
+                      <button 
+                        className={`preview-action-btn ${viewMode === 'only-processed' ? 'active' : ''}`}
+                        onClick={() => setViewMode('only-processed')}
+                      >
+                        Isolated Result
+                      </button>
+                    </div>
+                  </div>
 
-        {/* 3. Editing Workspace State */}
-        {!isProcessing && processedUrl && originalFile && (
-          <div className="workspace-editor">
-            {/* Viewport for slider comparison */}
-            <div className="editor-viewport">
-              <ComparisonSlider 
-                originalUrl={originalUrl} 
-                processedUrl={processedUrl} 
-                backgroundStyle={getBackgroundStyle()}
-                viewMode={viewMode}
-              />
-              
-              {/* Bottom toggle actions */}
-              <div className="preview-controls-row">
-                <button 
-                  className={`preview-action-btn ${viewMode === 'slider' ? 'active' : ''}`}
-                  onClick={() => setViewMode('slider')}
-                >
-                  Slider Compare
-                </button>
-                <button 
-                  className={`preview-action-btn ${viewMode === 'side-by-side' ? 'active' : ''}`}
-                  onClick={() => setViewMode('side-by-side')}
-                >
-                  Side by Side
-                </button>
-                <button 
-                  className={`preview-action-btn ${viewMode === 'only-processed' ? 'active' : ''}`}
-                  onClick={() => setViewMode('only-processed')}
-                >
-                  Isolated Result
-                </button>
-              </div>
-            </div>
-
-            {/* Sidebar controls */}
-            <EditorPanel 
-              resolution={resolution}
-              setResolution={setResolution}
-              format={format}
-              setFormat={setFormat}
-              compressionEnabled={compressionEnabled}
-              setCompressionEnabled={setCompressionEnabled}
-              quality={quality}
-              setQuality={setQuality}
-              backgroundType={backgroundType}
-              setBackgroundType={setBackgroundType}
-              backgroundValue={backgroundValue}
-              setBackgroundValue={setBackgroundValue}
-              onDownload={handleDownload}
-              onRestart={handleRestart}
-              originalFileName={originalFile.name}
-              originalSizeText={getFileSizeText(originalFile.size)}
-              isDownloading={isDownloading}
+                  {/* Sidebar controls */}
+                  <EditorPanel 
+                    resolution={resolution}
+                    setResolution={setResolution}
+                    format={format}
+                    setFormat={setFormat}
+                    compressionEnabled={compressionEnabled}
+                    setCompressionEnabled={setCompressionEnabled}
+                    quality={quality}
+                    setQuality={setQuality}
+                    backgroundType={backgroundType}
+                    setBackgroundType={setBackgroundType}
+                    backgroundValue={backgroundValue}
+                    setBackgroundValue={setBackgroundValue}
+                    onDownload={handleDownload}
+                    onRestart={handleRestart}
+                    originalFileName={originalFile.name}
+                    originalSizeText={getFileSizeText(originalFile.size)}
+                    isDownloading={isDownloading}
+                  />
+                </div>
+              )}
+            </>
+          } />
+          <Route path="/blog" element={<BlogList posts={posts} />} />
+          <Route path="/blog/:slug" element={<BlogPost posts={posts} adsenseClientId={settings.googleAdsenseClientId} />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<TermsOfService />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route path="/cookies" element={<CookiePolicy />} />
+          <Route path="/admin" element={
+            <AdminDashboard 
+              posts={posts} 
+              settings={settings} 
+              onUpdatePosts={setPosts} 
+              onUpdateSettings={setSettings} 
             />
-          </div>
-        )}
+          } />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
 
       {/* Footer info */}
-      {!processedUrl && !isProcessing && (
+      {!(processedUrl && location.pathname === '/') && !isProcessing && (
         <footer className="app-footer">
-          <p>ClearBG Pro — Completely Private client-side background removal. Supported formats: PNG, JPEG, WEBP.</p>
+          <nav className="footer-nav">
+            <Link to="/about" className="footer-nav-link">About Us</Link>
+            <Link to="/contact" className="footer-nav-link">Contact Us</Link>
+            <Link to="/privacy" className="footer-nav-link">Privacy Policy</Link>
+            <Link to="/terms" className="footer-nav-link">Terms of Service</Link>
+            <Link to="/disclaimer" className="footer-nav-link">Disclaimer</Link>
+            <Link to="/cookies" className="footer-nav-link">Cookie Policy</Link>
+          </nav>
+          <p>© 2026 ClearBG Pro (bgcleaner.online). Completely Private client-side background removal. Supported formats: PNG, JPEG, WEBP.</p>
         </footer>
       )}
+
+      {/* Cookie Consent slide-in banner */}
+      <CookieConsent />
     </div>
   );
 }
