@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 
 interface Post {
@@ -19,23 +21,20 @@ interface Settings {
   siteUrl: string;
 }
 
-interface AdminDashboardProps {
-  posts: Post[];
-  settings: Settings;
-  onUpdatePosts: (newPosts: Post[]) => void;
-  onUpdateSettings: (newSettings: Settings) => void;
-}
-
-export const AdminDashboard: React.FC<AdminDashboardProps> = ({
-  posts,
-  settings,
-  onUpdatePosts,
-  onUpdateSettings,
-}) => {
+export const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [settings, setSettings] = useState<Settings>({
+    googleAnalyticsId: '',
+    googleAdsenseClientId: '',
+    robotsTxt: '',
+    siteUrl: 'https://bgcleaner.online'
+  });
+  const [isLoading, setIsLoading] = useState(true);
 
   // Tab management: 'posts' or 'settings'
   const [activeTab, setActiveTab] = useState<'posts' | 'settings'>('posts');
@@ -47,37 +46,49 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
   const [postSlug, setPostSlug] = useState('');
   const [postSummary, setPostSummary] = useState('');
   const [postContent, setPostContent] = useState('');
-  const [postAuthor, setPostAuthor] = useState('Fiduciary Editor');
+  const [postAuthor, setPostAuthor] = useState('ClearBG Pro Team');
   const [postReadTime, setPostReadTime] = useState('5 min read');
   const [postTags, setPostTags] = useState('');
   const [postError, setPostError] = useState('');
 
   // Settings states
-  const [analyticsId, setAnalyticsId] = useState(settings.googleAnalyticsId);
-  const [adsenseId, setAdsenseId] = useState(settings.googleAdsenseClientId);
-  const [robotsContent, setRobotsContent] = useState(settings.robotsTxt);
-  const [siteUrl, setSiteUrl] = useState(settings.siteUrl);
+  const [analyticsId, setAnalyticsId] = useState('');
+  const [adsenseId, setAdsenseId] = useState('');
+  const [robotsContent, setRobotsContent] = useState('');
+  const [siteUrlVal, setSiteUrlVal] = useState('');
   const [settingsSuccess, setSettingsSuccess] = useState('');
-  const [isProductionMode, setIsProductionMode] = useState(false);
 
-  // Sync settings when props load
-  useEffect(() => {
-    setAnalyticsId(settings.googleAnalyticsId);
-    setAdsenseId(settings.googleAdsenseClientId);
-    setRobotsContent(settings.robotsTxt);
-    setSiteUrl(settings.siteUrl);
-  }, [settings]);
+  // Load Data
+  const loadData = async () => {
+    setIsLoading(true);
+    try {
+      const postsRes = await fetch('/api/posts');
+      if (postsRes.ok) {
+        const postsData = await postsRes.json();
+        setPosts(postsData);
+      }
 
-  // Check if API endpoints are functional (indicates local dev server)
-  useEffect(() => {
-    // If we're not running on localhost, notify the user it's read-only/localStorage fallback
-    if (
-      window.location.hostname !== 'localhost' &&
-      window.location.hostname !== '127.0.0.1'
-    ) {
-      setIsProductionMode(true);
+      const settingsRes = await fetch('/api/settings');
+      if (settingsRes.ok) {
+        const settingsData = await settingsRes.json();
+        setSettings(settingsData);
+        setAnalyticsId(settingsData.googleAnalyticsId || '');
+        setAdsenseId(settingsData.googleAdsenseClientId || '');
+        setRobotsContent(settingsData.robotsTxt || '');
+        setSiteUrlVal(settingsData.siteUrl || 'https://bgcleaner.online');
+      }
+    } catch (e) {
+      console.error('Error fetching admin data:', e);
+    } finally {
+      setIsLoading(false);
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadData();
+    }
+  }, [isAuthenticated]);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,9 +107,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setPostSlug(post.slug);
     setPostSummary(post.summary);
     setPostContent(post.content);
-    setPostAuthor(post.author);
-    setPostReadTime(post.readTime);
-    setPostTags(post.tags.join(', '));
+    setPostAuthor(post.author || 'ClearBG Pro Team');
+    setPostReadTime(post.readTime || '5 min read');
+    setPostTags(post.tags ? post.tags.join(', ') : '');
     setPostError('');
   };
 
@@ -109,7 +120,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     setPostSlug('');
     setPostSummary('');
     setPostContent('');
-    setPostAuthor('Fiduciary Editor');
+    setPostAuthor('ClearBG Pro Team');
     setPostReadTime('5 min read');
     setPostTags('');
     setPostError('');
@@ -138,29 +149,9 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       author: postAuthor,
       readTime: postReadTime,
       tags: postTags.split(',').map((t) => t.trim()).filter((t) => t !== ''),
+      createdAt: editingPost ? editingPost.createdAt : new Date().toISOString().split('T')[0],
     };
 
-    if (isProductionMode) {
-      // Fallback local memory changes (warning shown to user)
-      if (editingPost) {
-        const updated = posts.map((p) =>
-          p.id === editingPost.id ? { ...p, ...payload } : p
-        );
-        onUpdatePosts(updated);
-      } else {
-        const newPost: Post = {
-          id: String(Date.now()),
-          ...payload,
-          createdAt: new Date().toISOString().split('T')[0],
-        };
-        onUpdatePosts([newPost, ...posts]);
-      }
-      setEditingPost(null);
-      setIsCreating(false);
-      return;
-    }
-
-    // Call local dev API
     try {
       const url = '/api/posts';
       const method = editingPost ? 'PUT' : 'POST';
@@ -170,40 +161,39 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         body: JSON.stringify(editingPost ? { id: editingPost.id, ...payload } : payload),
       });
 
-      if (!response.ok) throw new Error('API failed');
-
-      const savedPost = await response.json();
+      const resData = await response.json();
+      if (!response.ok) {
+        throw new Error(resData.error || 'Failed to save post');
+      }
 
       if (editingPost) {
-        onUpdatePosts(posts.map((p) => (p.id === editingPost.id ? savedPost : p)));
+        setPosts(posts.map((p) => (p.id === editingPost.id ? resData : p)));
       } else {
-        onUpdatePosts([savedPost, ...posts]);
+        setPosts([resData, ...posts]);
       }
 
       setEditingPost(null);
       setIsCreating(false);
-    } catch (err) {
-      setPostError('Failed to communicate with dev server API. Check that "npm run dev" is running.');
+    } catch (err: any) {
+      setPostError(err.message || 'Failed to communicate with the database.');
     }
   };
 
   const handleDeletePost = async (id: string) => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
 
-    if (isProductionMode) {
-      onUpdatePosts(posts.filter((p) => p.id !== id));
-      return;
-    }
-
     try {
       const response = await fetch(`/api/posts?id=${id}`, {
         method: 'DELETE',
       });
-      if (!response.ok) throw new Error('API failed');
+      const resData = await response.json();
+      if (!response.ok) {
+        throw new Error(resData.error || 'Failed to delete');
+      }
 
-      onUpdatePosts(posts.filter((p) => p.id !== id));
-    } catch (err) {
-      alert('Failed to delete post on local dev server.');
+      setPosts(posts.filter((p) => p.id !== id));
+    } catch (err: any) {
+      alert(err.message || 'Failed to delete post.');
     }
   };
 
@@ -215,14 +205,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       googleAnalyticsId: analyticsId,
       googleAdsenseClientId: adsenseId,
       robotsTxt: robotsContent,
-      siteUrl: siteUrl,
+      siteUrl: siteUrlVal,
     };
-
-    if (isProductionMode) {
-      onUpdateSettings(newSettings);
-      setSettingsSuccess('Settings cached in local preview mode. Run locally in dev server to write config files.');
-      return;
-    }
 
     try {
       const response = await fetch('/api/settings', {
@@ -231,13 +215,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         body: JSON.stringify(newSettings),
       });
 
-      if (!response.ok) throw new Error('API failed');
-
       const resData = await response.json();
-      onUpdateSettings(resData.settings);
-      setSettingsSuccess('Settings saved. robots.txt and sitemap.xml files generated successfully.');
-    } catch (err) {
-      setSettingsSuccess('Error: Failed to save configurations to dev server API.');
+      if (!response.ok) {
+        throw new Error(resData.error || 'Failed to save settings');
+      }
+
+      setSettings(resData);
+      setSettingsSuccess('Settings and crawler configurations updated successfully in MongoDB database.');
+    } catch (err: any) {
+      setSettingsSuccess('Error: ' + err.message);
     }
   };
 
@@ -280,17 +266,20 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     );
   }
 
+  if (isLoading) {
+    return (
+      <div className="processing-container">
+        <p className="processing-title">Connecting to MongoDB Database...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="header-title">
           <h1>Control Dashboard</h1>
-          {isProductionMode && (
-            <span className="badge warning">Production Preview (Read-Only Mode)</span>
-          )}
-          {!isProductionMode && (
-            <span className="badge success">Local API Active (GitOps Mode)</span>
-          )}
+          <span className="badge success">Database Connected (MongoDB Active)</span>
         </div>
         <div className="header-actions">
           <button 
@@ -308,12 +297,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
           <button className="logout-btn" onClick={() => setIsAuthenticated(false)}>Logout</button>
         </div>
       </header>
-
-      {isProductionMode && (
-        <div className="dashboard-alert">
-          <p><strong>Notice:</strong> You are currently viewing the website in production. You can preview CRUD and settings adjustments here, but updates will not save to the permanent JSON files unless you run the project locally via <code>npm run dev</code> and commit the generated changes to Git.</p>
-        </div>
-      )}
 
       {activeTab === 'posts' && (
         <div className="dashboard-content">
@@ -357,7 +340,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   value={postTitle}
                   onChange={(e) => setPostTitle(e.target.value)}
                   required
-                  placeholder="e.g. The Medicare IRMAA Cliff..."
+                  placeholder="e.g. How AI-Powered Image Segmentation Works..."
                 />
               </div>
 
@@ -369,7 +352,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     value={postSlug}
                     onChange={(e) => setPostSlug(e.target.value)}
                     required
-                    placeholder="e.g. the-medicare-irmaa-cliff"
+                    placeholder="e.g. how-ai-image-segmentation-works"
                   />
                 </div>
                 <div className="form-group">
@@ -378,7 +361,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     type="text"
                     value={postAuthor}
                     onChange={(e) => setPostAuthor(e.target.value)}
-                    placeholder="Fiduciary Editor"
+                    placeholder="ClearBG Pro Team"
                   />
                 </div>
               </div>
@@ -399,7 +382,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                     type="text"
                     value={postTags}
                     onChange={(e) => setPostTags(e.target.value)}
-                    placeholder="Retirement, Taxes, Medicare"
+                    placeholder="AI Technology, Web Performance"
                   />
                 </div>
               </div>
@@ -422,7 +405,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                   onChange={(e) => setPostContent(e.target.value)}
                   required
                   rows={15}
-                  placeholder="Paste your HTML article content here. Support headings (h2, h3), paragraph classes, tables, lists, and formula boxes (<div class='formula'>...</div>)."
+                  placeholder="Paste your HTML article content here. Support headings (h2, h3), tables, lists, and formula boxes."
                 />
               </div>
 
@@ -438,7 +421,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {activeTab === 'settings' && (
         <div className="dashboard-content">
           <h2>Website SEO & Advertisement Setup</h2>
-          <p className="section-desc">Configure trackers and legal crawlers. Changes made here locally compile configuration scripts and generate validation documents in your public directory.</p>
+          <p className="section-desc">Configure trackers and legal crawlers. Changes made here dynamically update sitemaps and analytics scripts across all clients in real-time.</p>
 
           {settingsSuccess && (
             <p className={`status-banner ${settingsSuccess.startsWith('Error') ? 'error' : 'success'}`}>
@@ -451,8 +434,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
               <label>Target Site URL</label>
               <input
                 type="url"
-                value={siteUrl}
-                onChange={(e) => setSiteUrl(e.target.value)}
+                value={siteUrlVal}
+                onChange={(e) => setSiteUrlVal(e.target.value)}
                 placeholder="https://bgcleaner.online"
                 required
               />
@@ -484,7 +467,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             </div>
 
             <div className="form-group">
-              <label>Robots.txt Content</label>
+              <label>Robots.txt Directives</label>
               <textarea
                 value={robotsContent}
                 onChange={(e) => setRobotsContent(e.target.value)}
@@ -492,11 +475,11 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 required
                 placeholder="User-agent: *\nDisallow: /admin"
               />
-              <span className="help-text">Controls spider-crawlers parameters. Automatically updates public/robots.txt on save.</span>
+              <span className="help-text">Controls spider-crawlers parameters.</span>
             </div>
 
             <div className="form-actions-footer">
-              <button type="submit" className="save-settings-btn">Save Configurations & Generate Sitemap</button>
+              <button type="submit" className="save-settings-btn">Save Configurations</button>
             </div>
           </form>
         </div>

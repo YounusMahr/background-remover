@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 interface Post {
   id: string;
@@ -87,7 +89,7 @@ export const BlogList: React.FC<BlogListProps> = ({ posts }) => {
                 </div>
                 
                 <h2 className="blog-card-title">
-                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
                 
                 <p className="blog-card-summary">{post.summary}</p>
@@ -104,7 +106,7 @@ export const BlogList: React.FC<BlogListProps> = ({ posts }) => {
                   ))}
                 </div>
                 
-                <Link to={`/blog/${post.slug}`} className="blog-read-more">
+                <Link href={`/blog/${post.slug}`} className="blog-read-more">
                   Read Article →
                 </Link>
               </div>

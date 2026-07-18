@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 
 interface AdUnitProps {
   client?: string;
@@ -13,19 +15,23 @@ export const AdUnit: React.FC<AdUnitProps> = ({
   format = 'auto',
   style = { display: 'block', minHeight: '90px' }
 }) => {
+  const [isLocal, setIsLocal] = useState(false);
+
   useEffect(() => {
-    // Fire adsbygoogle.push() after ad unit is rendered in production
-    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-      try {
-        const adsbygoogle = (window as any).adsbygoogle || [];
-        adsbygoogle.push({});
-      } catch (e) {
-        console.error('Google Adsense push initialization error', e);
+    if (typeof window !== 'undefined') {
+      const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      setIsLocal(isLocalHost);
+
+      if (!isLocalHost) {
+        try {
+          const adsbygoogle = (window as any).adsbygoogle || [];
+          adsbygoogle.push({});
+        } catch (e) {
+          console.error('Google Adsense push initialization error', e);
+        }
       }
     }
   }, []);
-
-  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
   if (isLocal) {
     return (

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useRef } from 'react';
 import { Download, RefreshCw, Sliders, Image as ImageIcon, Palette } from 'lucide-react';
 
