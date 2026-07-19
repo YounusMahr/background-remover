@@ -1,35 +1,26 @@
 {
   "..\\node_modules\\@imgly\\background-removal\\dist\\index.mjs -> onnxruntime-web": {
-    "id": 4932,
+    "id": "..\\node_modules\\@imgly\\background-removal\\dist\\index.mjs -> onnxruntime-web",
     "files": [
-      "static/chunks/037f3a08.b367a10a61e295d2.js",
-      "static/chunks/699.a59453d41e2db32c.js"
+      "static/chunks/_app-pages-browser_node_modules_onnxruntime-web_dist_ort_bundle_min_mjs.js"
     ]
   },
   "..\\node_modules\\@imgly\\background-removal\\dist\\index.mjs -> onnxruntime-web/webgpu": {
-    "id": 9288,
+    "id": "..\\node_modules\\@imgly\\background-removal\\dist\\index.mjs -> onnxruntime-web/webgpu",
     "files": [
-      "static/chunks/37424505.ec1eef58cbdca07b.js",
-      "static/chunks/80.eb62dafc77c519d7.js"
+      "static/chunks/_app-pages-browser_node_modules_onnxruntime-web_dist_ort_webgpu_bundle_min_mjs.js"
     ]
   },
-  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
-    "id": 5139,
+  "..\\node_modules\\next\\dist\\client\\dev\\hot-reloader\\app\\use-websocket.js -> @vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts": {
+    "id": "..\\node_modules\\next\\dist\\client\\dev\\hot-reloader\\app\\use-websocket.js -> @vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts",
     "files": [
-      "static/chunks/139.7a5a8e93a21948c1.js"
-    ]
-  },
-  "..\\node_modules\\next\\dist\\client\\index.js -> ../pages/_error": {
-    "id": 1646,
-    "files": [
-      "static/chunks/646.f342b7cffc01feb0.js"
+      "static/chunks/_app-pages-browser_node_modules_next_dist_client_dev_noop-turbopack-hmr_js.js"
     ]
   },
   "components\\ToolLoader.tsx -> ./MainTool": {
-    "id": 6908,
+    "id": "components\\ToolLoader.tsx -> ./MainTool",
     "files": [
-      "static/chunks/b478a885.64f3b41f06c39aa8.js",
-      "static/chunks/908.76ee168a9b11b3db.js"
+      "static/chunks/_app-pages-browser_src_components_MainTool_tsx.js"
     ]
   }
 }

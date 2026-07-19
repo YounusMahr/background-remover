@@ -1,12 +1,10 @@
 import '../index.css';
 import dbConnect from '../lib/mongodb';
 import SettingsModel from '../models/Settings';
-import Link from 'next/link';
 
 const Settings = SettingsModel as any;
 
-import { Header } from './Header';
-import { CookieConsent } from '../components/CookieConsent';
+import { SiteChrome } from './SiteChrome';
 import initialSettings from '../data/settings.json';
 
 import type { Metadata } from 'next';
@@ -99,23 +97,15 @@ export default async function RootLayout({
         )}
       </head>
       <body>
-        <div className="app-container">
-          <Header />
-          <main className="main-workspace">{children}</main>
-          
-          <footer className="app-footer">
-            <nav className="footer-nav">
-              <Link href="/about" className="footer-nav-link">About Us</Link>
-              <Link href="/contact" className="footer-nav-link">Contact Us</Link>
-              <Link href="/privacy" className="footer-nav-link">Privacy Policy</Link>
-              <Link href="/terms" className="footer-nav-link">Terms of Service</Link>
-              <Link href="/disclaimer" className="footer-nav-link">Disclaimer</Link>
-              <Link href="/cookies" className="footer-nav-link">Cookie Policy</Link>
-            </nav>
-            <p>© 2026 ClearBG Pro (bgcleaner.online). Completely Private client-side background removal. Supported formats: PNG, JPEG, WEBP.</p>
-          </footer>
-        </div>
-        <CookieConsent />
+        <SiteChrome
+          siteName={settings.siteName || 'ClearBG Pro'}
+          footerTagline={
+            settings.footerTagline ||
+            'Completely private client-side background removal. Supported formats: PNG, JPEG, WEBP.'
+          }
+        >
+          {children}
+        </SiteChrome>
       </body>
     </html>
   );

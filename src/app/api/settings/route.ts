@@ -32,6 +32,8 @@ export async function POST(request: Request) {
       settings.googleAdsenseClientId = body.googleAdsenseClientId;
       settings.robotsTxt = body.robotsTxt;
       settings.siteUrl = body.siteUrl;
+      if (body.siteName !== undefined) settings.siteName = body.siteName;
+      if (body.footerTagline !== undefined) settings.footerTagline = body.footerTagline;
       await settings.save();
     } else {
       settings = await Settings.create(body);

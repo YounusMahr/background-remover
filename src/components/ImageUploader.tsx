@@ -81,14 +81,6 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageSelected })
 
   return (
     <div className="uploader-screen">
-      <div className="hero-section">
-        <h1 className="hero-title">Remove Image Backgrounds Instantly</h1>
-        <p className="hero-subtitle" style={{ maxWidth: '700px', margin: '0 auto', opacity: 0.85 }}>
-          100% Automatic and Free, AI-Powered BG Remover. Download pictures in Full HD / 4K. custom backdrops, vibrant gradients, and compress images features.
-
-        </p>
-      </div>
-
       <div
         className={`upload-box ${isDragging ? 'dragging' : ''}`}
         onDragOver={handleDragOver}

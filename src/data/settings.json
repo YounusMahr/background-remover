@@ -1,4 +1,6 @@
 {
+  "siteName": "ClearBG Pro",
+  "footerTagline": "Completely Private client-side background removal. Supported formats: PNG, JPEG, WEBP.",
   "googleAnalyticsId": "",
   "googleAdsenseClientId": "",
   "robotsTxt": "User-agent: *\nDisallow: /admin\nSitemap: https://bgcleaner.online/sitemap.xml",
