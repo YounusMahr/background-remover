@@ -1,0 +1,18 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/ads.txt/route": "/ads.txt",
+  "/api/settings/route": "/api/settings",
+  "/api/posts/route": "/api/posts",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/blog/[slug]/page": "/blog/[slug]",
+  "/admin/page": "/admin",
+  "/cookies/page": "/cookies",
+  "/contact/page": "/contact",
+  "/about/page": "/about",
+  "/disclaimer/page": "/disclaimer",
+  "/privacy/page": "/privacy",
+  "/terms/page": "/terms",
+  "/blog/page": "/blog",
+  "/page": "/"
+}
