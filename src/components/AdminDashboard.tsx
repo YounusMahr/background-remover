@@ -15,6 +15,8 @@ import {
   ExternalLink,
   ShieldCheck,
   AlertCircle,
+  Menu,
+  X,
 } from 'lucide-react';
 
 interface Post {
@@ -58,6 +60,7 @@ export const AdminDashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [activeTab, setActiveTab] = useState<TabKey>('overview');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Post editing states
   const [editingPost, setEditingPost] = useState<Post | null>(null);
@@ -364,7 +367,34 @@ export const AdminDashboard: React.FC = () => {
   // ---------------------------------------------------------------- Dashboard
   return (
     <div className="admin-shell">
-      <aside className="admin-sidebar">
+      {/* Mobile Sticky Header */}
+      <header className="admin-mobile-header">
+        <div className="admin-sidebar-brand">
+          <span className="admin-logo-mark">B</span>
+          <div>
+            <span className="admin-logo-text">{siteNameVal || 'ClearBG Pro'}</span>
+            <span className="admin-logo-sub">Admin</span>
+          </div>
+        </div>
+        <button
+          type="button"
+          className="admin-menu-toggle"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
+      </header>
+
+      {/* Drawer Overlay Backdrop */}
+      {isMobileMenuOpen && (
+        <div
+          className="admin-sidebar-overlay"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      <aside className={`admin-sidebar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="admin-sidebar-brand">
           <span className="admin-logo-mark">B</span>
           <div>
@@ -381,6 +411,7 @@ export const AdminDashboard: React.FC = () => {
               onClick={() => {
                 setActiveTab(item.key);
                 handleCancelEdit();
+                setIsMobileMenuOpen(false);
               }}
             >
               {item.icon}
@@ -393,7 +424,10 @@ export const AdminDashboard: React.FC = () => {
           <a href="/" target="_blank" rel="noopener noreferrer" className="admin-view-site">
             <ExternalLink size={16} /> View Site
           </a>
-          <button className="admin-logout" onClick={() => setIsAuthenticated(false)}>
+          <button className="admin-logout" onClick={() => {
+            setIsAuthenticated(false);
+            setIsMobileMenuOpen(false);
+          }}>
             <LogOut size={16} /> Logout
           </button>
         </div>
