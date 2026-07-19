@@ -255,7 +255,7 @@ eval(__webpack_require__.ts("__webpack_require__.r(__webpack_exports__);\n/* har
   \********************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"googleAnalyticsId":"","googleAdsenseClientId":"","robotsTxt":"User-agent: *\\nDisallow: /admin\\nSitemap: https://bgcleaner.online/sitemap.xml","siteUrl":"https://bgcleaner.online"}');
+module.exports = /*#__PURE__*/JSON.parse('{"siteName":"ClearBG Pro","footerTagline":"Completely Private client-side background removal. Supported formats: PNG, JPEG, WEBP.","googleAnalyticsId":"","googleAdsenseClientId":"","robotsTxt":"User-agent: *\\nDisallow: /admin\\nSitemap: https://bgcleaner.online/sitemap.xml","siteUrl":"https://bgcleaner.online"}');
 
 /***/ })
 
