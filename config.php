@@ -239,3 +239,13 @@ function render_adsense($slot = 'default', $format = 'auto') {
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>';
 }
+
+/**
+ * AdSense Header Loader
+ */
+function render_adsense_head() {
+    $settings = get_settings();
+    $clientId = trim($settings['googleAdsenseClientId'] ?? '');
+    if (empty($clientId)) return '';
+    return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' . htmlspecialchars($clientId) . '" crossorigin="anonymous"></script>';
+}
