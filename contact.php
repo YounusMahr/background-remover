@@ -51,7 +51,7 @@ include BASE_DIR . '/includes/header.php';
                 </div>
             <?php endif; ?>
 
-            <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; margin-bottom: 3rem;">
+            <div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; margin-bottom: 3rem;">
                 <div>
                     <h2>Direct Contact Information</h2>
                     <p>For support, API inquiries, or feature suggestions, feel free to contact us through any of the channels below:</p>
