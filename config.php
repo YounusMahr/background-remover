@@ -215,37 +215,15 @@ function site_url($path = '') {
 }
 
 /**
- * AdSense Component Renderer
+ * AdSense Component Renderer (Disabled for now)
  */
 function render_adsense($slot = 'default', $format = 'auto') {
-    $settings = get_settings();
-    $clientId = trim($settings['googleAdsenseClientId'] ?? '');
-    
-    if (empty($clientId)) {
-        return '<div class="adsense-placeholder" data-slot="' . htmlspecialchars($slot) . '">
-            <span class="ad-badge">Advertisement</span>
-            <div class="ad-box-inner">AdSense Unit (' . htmlspecialchars($slot) . ') - Configurable in Admin</div>
-        </div>';
-    }
-    
-    return '
-    <div class="adsense-container" style="margin: 1.5rem 0; text-align: center; overflow: hidden;">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="' . htmlspecialchars($clientId) . '"
-             data-ad-slot="' . htmlspecialchars($slot) . '"
-             data-ad-format="' . htmlspecialchars($format) . '"
-             data-full-width-responsive="true"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-    </div>';
+    return '';
 }
 
 /**
- * AdSense Header Loader
+ * AdSense Header Loader (Disabled for now)
  */
 function render_adsense_head() {
-    $settings = get_settings();
-    $clientId = trim($settings['googleAdsenseClientId'] ?? '');
-    if (empty($clientId)) return '';
-    return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' . htmlspecialchars($clientId) . '" crossorigin="anonymous"></script>';
+    return '';
 }
