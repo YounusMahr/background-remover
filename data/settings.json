@@ -1,0 +1,9 @@
+{
+  "siteName": "ClearBG Pro",
+  "siteTagline": "Remove Image Backgrounds 100% Automatically and Free",
+  "footerTagline": "100% Private client-side background removal. No server uploads. Export HD PNG, WEBP, and JPEG.",
+  "siteUrl": "https://bgcleaner.online",
+  "googleAnalyticsId": "",
+  "googleAdsenseClientId": "",
+  "robotsTxt": "User-agent: *\nDisallow: /admin.php\nSitemap: https://bgcleaner.online/sitemap.xml"
+}

@@ -1,32 +1,29 @@
-# React + TypeScript + Vite
+# ClearBG Pro - Vanilla PHP AI Background Remover (remove.bg Design)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A lightweight, high-performance, and privacy-focused AI background remover application built with **Vanilla PHP**, styled with the **remove.bg** color scheme and layout aesthetics, optimized for **SEO** and **Google AdSense**.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **remove.bg Design Palette & Layout**: Royal Blue (`#2f6beb`) theme, crisp white cards, rounded drag-and-drop zone, and dual-tab editor view ("Original" vs "Removed Background").
+- **100% Private Client-Side AI**: Neural network processing runs locally inside your browser via WebAssembly (`@imgly/background-removal`). Your photos are **never uploaded** to any server.
+- **Full HD Cutout Exports**: Export high-resolution transparent PNG, WebP, and JPEG files with edge defringing and custom solid/gradient background replacements.
+- **SEO Optimized**: Dynamic XML Sitemap (`sitemap.php`), `robots.txt`, OpenGraph metadata, and Schema.org JSON-LD structured data (`WebApplication`, `FAQPage`, `BlogPosting`).
+- **Google AdSense Integration**: Built-in ad slots helper component and `ads.txt` support.
+- **SEO Blog Section**: 9 comprehensive articles included out-of-the-box in `data/posts.json` with tag filters and article views.
+- **Admin Dashboard (`admin.php`)**: Edit site settings, AdSense Client ID, Google Analytics ID, and manage blog posts without needing MySQL database setup.
 
-## React Compiler
+## How to Run Locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+Start the built-in PHP development server:
+```bash
+php -S localhost:8000
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open your browser to:
+- App: `http://localhost:8000`
+- Blog: `http://localhost:8000/blog.php`
+- Admin: `http://localhost:8000/admin.php`
+
+## Deployment
+
+Upload all project files directly to any standard PHP web hosting provider (cPanel, Apache, Nginx, LiteSpeed, VPS) under `public_html`. No `npm build` or Node.js runtime required!

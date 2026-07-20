@@ -1,0 +1,70 @@
+<?php
+require_once __DIR__ . '/config.php';
+
+$pageTitle = "Privacy Policy - ClearBG Pro | Zero Server File Upload Policy";
+$pageDesc = "Read the ClearBG Pro Privacy Policy. Learn about our zero-upload WebAssembly AI architecture, cookies, and user data protections under GDPR and CCPA.";
+$currentPage = "privacy";
+
+include BASE_DIR . '/includes/header.php';
+?>
+
+<div class="container article-container" style="padding-top: 3rem; padding-bottom: 4rem;">
+    <header class="article-header">
+        <span class="blog-tag">Legal &amp; Compliance</span>
+        <h1 class="article-title" style="margin-top: 0.8rem;">Privacy Policy</h1>
+        <div class="blog-meta" style="color: var(--text-muted);">
+            <span>Last Updated: July 2026</span>
+        </div>
+    </header>
+
+    <main class="article-body">
+        <p>At <strong>ClearBG Pro</strong> (accessible from <a href="https://bgcleaner.online">https://bgcleaner.online</a>), protecting the privacy of our visitors is one of our main priorities. This Privacy Policy document details the types of information collected and recorded by ClearBG Pro and how we protect user data.</p>
+
+        <div style="background: var(--primary-light); border-left: 4px solid var(--primary); padding: 1.25rem 1.5rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 2rem 0;">
+            <h3 style="margin-top: 0; color: var(--primary);">🔒 100% Client-Side Processing Guarantee</h3>
+            <p style="margin-bottom: 0;">ClearBG Pro utilizes browser-based WebAssembly (WASM) neural networks. All image background removal occurs directly inside your local browser thread. <strong>Your photos and graphics are never uploaded, stored, or processed on any remote server.</strong></p>
+        </div>
+
+        <h2>1. Information We Do NOT Collect</h2>
+        <p>Because processing occurs on your personal device:</p>
+        <ul>
+            <li>We do not upload, copy, view, or store your original images.</li>
+            <li>We do not store or collect processed background-removed cutout files.</li>
+            <li>We do not collect facial recognition data, biometrics, or personal photo metadata.</li>
+        </ul>
+
+        <h2>2. Log Files &amp; Standard Server Metrics</h2>
+        <p>ClearBG Pro follows standard web server procedures by utilizing log files. These files log visitors when they access website pages. The information collected by log files includes internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and number of clicks. These metrics are not linked to any personally identifiable information and are used solely for analyzing web traffic and maintaining server stability.</p>
+
+        <h2>3. Cookies and Web Beacons</h2>
+        <p>Like any other website, ClearBG Pro uses 'cookies'. These cookies are used to store information including visitors' preferences, local storage cache of WebAssembly neural network weights, and the pages on the website that the visitor accessed. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and device capabilities.</p>
+
+        <h2>4. Google AdSense &amp; Third-Party Advertising Vendors</h2>
+        <p>Google is a third-party vendor on our site. It uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to www.website.com and other sites on the internet.</p>
+        <ul>
+            <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</li>
+            <li>Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
+            <li>Users may opt-out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>.</li>
+        </ul>
+
+        <h2>5. GDPR Data Protection Rights</h2>
+        <p>Under the General Data Protection Regulation (GDPR), users are entitled to fundamental data rights:</p>
+        <ul>
+            <li><strong>The right to access:</strong> You have the right to request copies of your personal data.</li>
+            <li><strong>The right to erasure:</strong> You have the right to request that we erase your personal data.</li>
+            <li><strong>The right to restrict processing:</strong> You have the right to request that we restrict the processing of your personal data.</li>
+        </ul>
+        <p>Because we do not store personal account credentials or uploaded photos, no personal data resides on our databases.</p>
+
+        <h2>6. CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
+        <p>Under the California Consumer Privacy Act (CCPA), California consumers have the right to request that a business disclose the categories and specific pieces of personal data collected, and request that a business not sell the consumer's personal data. We do not sell user data.</p>
+
+        <h2>7. Children's Online Privacy Protection (COPPA)</h2>
+        <p>Protecting children's privacy is important. ClearBG Pro does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you believe your child provided this kind of information on our website, we strongly encourage you to contact us immediately.</p>
+
+        <h2>8. Contacting Us</h2>
+        <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <a href="mailto:support@bgcleaner.online">support@bgcleaner.online</a> or through our <a href="/contact.php">Contact Page</a>.</p>
+    </main>
+</div>
+
+<?php include BASE_DIR . '/includes/footer.php'; ?>

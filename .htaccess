@@ -1,0 +1,16 @@
+ErrorDocument 404 /404.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Sitemap XML rewrite
+    RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+    # Clean Blog routes
+    RewriteRule ^blog/?$ blog.php [L,QSA]
+    RewriteRule ^blog/([a-zA-Z0-9\-]+)/?$ post.php?slug=$1 [L,QSA]
+
+    # Clean Pages
+    RewriteRule ^(privacy|terms|about|cookies|disclaimer|contact)/?$ page.php?type=$1 [L,QSA]
+</IfModule>

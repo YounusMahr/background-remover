@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin.php
+Disallow: /config.php
+Disallow: /data/
+
+Sitemap: https://bgcleaner.online/sitemap.php
