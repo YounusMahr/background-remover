@@ -1,16 +1,8 @@
-ErrorDocument 404 /404.php
-
+# Hostinger & LiteSpeed Compatible .htaccess Rules
 <IfModule mod_rewrite.c>
+    Options -Indexes +FollowSymLinks
     RewriteEngine On
     RewriteBase /
-
-    # 0. 301 the ugly .php URLs to their clean equivalents (SEO consolidation).
-    #    THE_REQUEST matches only the original browser request, so the internal
-    #    rewrites below never trigger this and no redirect loop occurs.
-    RewriteCond %{THE_REQUEST} \s/+(about|contact|privacy|terms|cookies|disclaimer|blog)\.php[\s?] [NC]
-    RewriteRule ^ /%1 [R=301,L]
-    RewriteCond %{THE_REQUEST} \s/+post\.php\?slug=([a-zA-Z0-9\-]+) [NC]
-    RewriteRule ^ /blog/%1? [R=301,L]
 
     # 1. Sitemap XML
     RewriteRule ^sitemap\.xml$ sitemap.php [L]
@@ -21,7 +13,7 @@ ErrorDocument 404 /404.php
     # 3. Single Blog Post (/blog/{slug} -> post.php?slug={slug})
     RewriteRule ^blog/([a-zA-Z0-9\-]+)/?$ post.php?slug=$1 [L,QSA]
 
-    # 4. Standalone Pages (/about, /contact, /privacy, /terms, /cookies, /disclaimer)
+    # 4. Standalone Pages
     RewriteRule ^about/?$ about.php [L,QSA]
     RewriteRule ^contact/?$ contact.php [L,QSA]
     RewriteRule ^privacy/?$ privacy.php [L,QSA]
@@ -29,3 +21,5 @@ ErrorDocument 404 /404.php
     RewriteRule ^cookies/?$ cookies.php [L,QSA]
     RewriteRule ^disclaimer/?$ disclaimer.php [L,QSA]
 </IfModule>
+
+ErrorDocument 404 /404.php

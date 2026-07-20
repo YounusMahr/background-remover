@@ -9,9 +9,15 @@ if (session_status() === PHP_SESSION_NONE) {
 
 define('BASE_DIR', __DIR__);
 define('ENV_FILE', BASE_DIR . '/.env');
-define('SETTINGS_FILE', BASE_DIR . '/data/settings.json');
-define('POSTS_FILE', BASE_DIR . '/data/posts.json');
-define('CONTACTS_FILE', BASE_DIR . '/data/contacts.json');
+define('DATA_DIR', BASE_DIR . '/data');
+define('SETTINGS_FILE', DATA_DIR . '/settings.json');
+define('POSTS_FILE', DATA_DIR . '/posts.json');
+define('CONTACTS_FILE', DATA_DIR . '/contacts.json');
+
+// Ensure data directory exists on hostinger
+if (!is_dir(DATA_DIR)) {
+    @mkdir(DATA_DIR, 0755, true);
+}
 
 /**
  * Pure PHP .env File Parser & Loader
@@ -58,7 +64,7 @@ function get_db_connection() {
 
     try {
         if ($driver === 'sqlite') {
-            $pdo = new PDO("sqlite:" . BASE_DIR . "/data/database.sqlite");
+            $pdo = new PDO("sqlite:" . DATA_DIR . "/database.sqlite");
         } else {
             $dsn = "mysql:host={$host};port={$port};dbname={$dbName};charset=utf8mb4";
             $pdo = new PDO($dsn, $user, $pass, [
@@ -85,7 +91,7 @@ function get_settings() {
 
     $fileSettings = [];
     if (file_exists(SETTINGS_FILE)) {
-        $json = file_get_contents(SETTINGS_FILE);
+        $json = @file_get_contents(SETTINGS_FILE);
         $fileSettings = json_decode($json, true) ?: [];
     }
 
@@ -109,7 +115,7 @@ function get_settings() {
 function save_settings($settings) {
     $current = get_settings();
     $merged = array_merge($current, $settings);
-    file_put_contents(SETTINGS_FILE, json_encode($merged, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    @file_put_contents(SETTINGS_FILE, json_encode($merged, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     return $merged;
 }
 
@@ -120,7 +126,7 @@ function get_posts() {
     if (!file_exists(POSTS_FILE)) {
         return [];
     }
-    $json = file_get_contents(POSTS_FILE);
+    $json = @file_get_contents(POSTS_FILE);
     $data = json_decode($json, true);
     return is_array($data) ? $data : [];
 }
@@ -142,7 +148,7 @@ function get_post_by_slug($slug) {
  * Save Blog Posts Array
  */
 function save_posts($posts) {
-    file_put_contents(POSTS_FILE, json_encode($posts, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    @file_put_contents(POSTS_FILE, json_encode($posts, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
 
 /**
@@ -152,7 +158,7 @@ function get_contacts() {
     if (!file_exists(CONTACTS_FILE)) {
         return [];
     }
-    $json = file_get_contents(CONTACTS_FILE);
+    $json = @file_get_contents(CONTACTS_FILE);
     $data = json_decode($json, true);
     return is_array($data) ? $data : [];
 }
@@ -172,7 +178,7 @@ function add_contact($name, $email, $subject, $message) {
         'ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
     ];
     array_unshift($contacts, $newEntry);
-    file_put_contents(CONTACTS_FILE, json_encode($contacts, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    @file_put_contents(CONTACTS_FILE, json_encode($contacts, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     return $newEntry;
 }
 
@@ -184,7 +190,7 @@ function delete_contact($id) {
     $filtered = array_values(array_filter($contacts, function($c) use ($id) {
         return $c['id'] !== $id;
     }));
-    file_put_contents(CONTACTS_FILE, json_encode($filtered, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    @file_put_contents(CONTACTS_FILE, json_encode($filtered, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
 }
 
 /**
