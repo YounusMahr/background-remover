@@ -13,6 +13,22 @@ $currentPage = $currentPage ?? 'home';
     <?php include BASE_DIR . '/includes/seo.php'; ?>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
+    
+    <!-- Unregister old/cached Service Workers from previous React/Next.js builds -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for (let registration of registrations) {
+                    registration.unregister().then(function(boolean) {
+                        if (boolean) {
+                            console.log('Unregistered old Service Worker successfully.');
+                            window.location.reload();
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 

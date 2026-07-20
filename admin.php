@@ -32,6 +32,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
     <meta charset="UTF-8">
     <title>Admin Login - ClearBG Pro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
 </head>
@@ -186,6 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Admin Dashboard - <?php echo htmlspecialchars($settings['siteName']); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
 </head>

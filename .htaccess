@@ -13,7 +13,8 @@
     # 3. Single Blog Post (/blog/{slug} -> post.php?slug={slug})
     RewriteRule ^blog/([a-zA-Z0-9\-]+)/?$ post.php?slug=$1 [L,QSA]
 
-    # 4. Standalone Pages
+    # 4. Standalone Pages & Admin Panel
+    RewriteRule ^admin/?$ admin.php [L,QSA]
     RewriteRule ^about/?$ about.php [L,QSA]
     RewriteRule ^contact/?$ contact.php [L,QSA]
     RewriteRule ^privacy/?$ privacy.php [L,QSA]

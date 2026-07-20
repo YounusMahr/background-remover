@@ -24,8 +24,8 @@ if (preg_match('#^/blog/([a-zA-Z0-9\-]+)/?$#', $uri, $matches)) {
     exit;
 }
 
-// 4. Standalone Pages
-$pages = ['about', 'contact', 'privacy', 'terms', 'cookies', 'disclaimer'];
+// 4. Standalone Pages & Admin Panel
+$pages = ['admin', 'about', 'contact', 'privacy', 'terms', 'cookies', 'disclaimer'];
 foreach ($pages as $p) {
     if ($uri === "/{$p}" || $uri === "/{$p}/") {
         require __DIR__ . "/{$p}.php";
