@@ -51,7 +51,7 @@ include BASE_DIR . '/includes/header.php';
         </div>
 
         <h2>Get in Touch</h2>
-        <p>We are constantly improving our background removal models and web performance. If you have feedback, feature requests, or business inquiry, please visit our <a href="/contact.php" style="font-weight: 600;">Contact Us</a> page.</p>
+        <p>We are constantly improving our background removal models and web performance. If you have feedback, feature requests, or business inquiry, please visit our <a href="/contact" style="font-weight: 600;">Contact Us</a> page.</p>
     </main>
 </div>
 

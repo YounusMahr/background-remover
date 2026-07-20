@@ -63,7 +63,7 @@ include BASE_DIR . '/includes/header.php';
         <p>Protecting children's privacy is important. ClearBG Pro does not knowingly collect any Personal Identifiable Information from children under the age of 13. If you believe your child provided this kind of information on our website, we strongly encourage you to contact us immediately.</p>
 
         <h2>8. Contacting Us</h2>
-        <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <a href="mailto:support@bgcleaner.online">support@bgcleaner.online</a> or through our <a href="/contact.php">Contact Page</a>.</p>
+        <p>If you have additional questions or require more information about our Privacy Policy, do not hesitate to contact us at <a href="mailto:support@bgcleaner.online">support@bgcleaner.online</a> or through our <a href="/contact">Contact Page</a>.</p>
     </main>
 </div>
 

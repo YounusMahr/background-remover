@@ -42,21 +42,21 @@ include BASE_DIR . '/includes/header.php';
             <div class="features-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1.25rem;">
                 <div class="feature-card" style="background: var(--bg-card);">
                     <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem;">
-                        <a href="/blog.php">📝 Read Blog &amp; Guides</a>
+                        <a href="/blog">📝 Read Blog &amp; Guides</a>
                     </h4>
                     <p style="font-size: 0.88rem; color: var(--text-muted);">Explore 15 in-depth guides on AI segmentation and e-commerce.</p>
                 </div>
 
                 <div class="feature-card" style="background: var(--bg-card);">
                     <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem;">
-                        <a href="/about.php">ℹ️ About ClearBG Pro</a>
+                        <a href="/about">ℹ️ About ClearBG Pro</a>
                     </h4>
                     <p style="font-size: 0.88rem; color: var(--text-muted);">Learn about our zero-upload client-side WebAssembly AI technology.</p>
                 </div>
 
                 <div class="feature-card" style="background: var(--bg-card);">
                     <h4 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem;">
-                        <a href="/contact.php">📧 Contact Support</a>
+                        <a href="/contact">📧 Contact Support</a>
                     </h4>
                     <p style="font-size: 0.88rem; color: var(--text-muted);">Reach out to our team if you need assistance or reported a broken link.</p>
                 </div>

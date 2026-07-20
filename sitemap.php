@@ -20,16 +20,16 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 
     <!-- Blog Index Page -->
     <url>
-        <loc><?php echo htmlspecialchars($baseUrl); ?>/blog.php</loc>
+        <loc><?php echo htmlspecialchars($baseUrl); ?>/blog</loc>
         <lastmod><?php echo date('Y-m-d'); ?></lastmod>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- Blog Posts -->
+    <!-- Blog Posts (/blog/{slug}) -->
     <?php foreach ($posts as $post): ?>
     <url>
-        <loc><?php echo htmlspecialchars($baseUrl); ?>/post.php?slug=<?php echo urlencode($post['slug'] ?? $post['id']); ?></loc>
+        <loc><?php echo htmlspecialchars($baseUrl); ?>/blog/<?php echo urlencode($post['slug'] ?? $post['id']); ?></loc>
         <lastmod><?php echo htmlspecialchars($post['createdAt'] ?? date('Y-m-d')); ?></lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
@@ -38,7 +38,7 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 
     <!-- Legal & Information Pages -->
     <?php 
-    $pages = ['about.php', 'contact.php', 'privacy.php', 'terms.php', 'cookies.php', 'disclaimer.php'];
+    $pages = ['about', 'contact', 'privacy', 'terms', 'cookies', 'disclaimer'];
     foreach ($pages as $p): 
     ?>
     <url>

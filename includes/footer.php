@@ -30,9 +30,9 @@ $footerTagline = htmlspecialchars($settings['footerTagline'] ?? '100% Private cl
             <div class="footer-col">
                 <h4>Resources &amp; SEO</h4>
                 <ul class="footer-links">
-                    <li><a href="/blog.php">Blog &amp; Articles</a></li>
-                    <li><a href="/about.php">About ClearBG Pro</a></li>
-                    <li><a href="/sitemap.php">Sitemap XML</a></li>
+                    <li><a href="/blog">Blog &amp; Articles</a></li>
+                    <li><a href="/about">About ClearBG Pro</a></li>
+                    <li><a href="/sitemap.xml">Sitemap XML</a></li>
                     <li><a href="/robots.txt">Robots.txt</a></li>
                 </ul>
             </div>
@@ -40,11 +40,11 @@ $footerTagline = htmlspecialchars($settings['footerTagline'] ?? '100% Private cl
             <div class="footer-col">
                 <h4>Legal &amp; Support</h4>
                 <ul class="footer-links">
-                    <li><a href="/privacy.php">Privacy Policy</a></li>
-                    <li><a href="/terms.php">Terms of Service</a></li>
-                    <li><a href="/cookies.php">Cookie Policy</a></li>
-                    <li><a href="/disclaimer.php">Disclaimer</a></li>
-                    <li><a href="/contact.php">Contact Us</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/terms">Terms of Service</a></li>
+                    <li><a href="/cookies">Cookie Policy</a></li>
+                    <li><a href="/disclaimer">Disclaimer</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                 </ul>
             </div>
         </div>

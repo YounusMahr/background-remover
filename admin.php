@@ -1,9 +1,85 @@
 <?php
 require_once __DIR__ . '/config.php';
 
+$adminPassword = $_ENV['ADMIN_PASSWORD'] ?? getenv('ADMIN_PASSWORD') ?: 'admin123';
 $message = '';
-$activeTab = $_GET['tab'] ?? 'dashboard';
+$loginError = '';
 
+// Handle Login / Logout Actions
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    unset($_SESSION['admin_logged_in']);
+    header('Location: /admin.php');
+    exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'login') {
+    $pass = $_POST['password'] ?? '';
+    if ($pass === $adminPassword) {
+        $_SESSION['admin_logged_in'] = true;
+        header('Location: /admin.php');
+        exit;
+    } else {
+        $loginError = "Incorrect admin password. Please try again.";
+    }
+}
+
+// Show Login Screen if not authenticated
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login - ClearBG Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
+</head>
+<body class="admin-body" style="align-items: center; justify-content: center; background: #0f172a; min-height: 100vh;">
+
+<div style="max-width: 400px; width: 100%; padding: 2rem; background: #ffffff; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); text-align: center;">
+    <div style="width: 54px; height: 54px; background: #2f6beb; color: white; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.4rem; margin-bottom: 1rem;">
+        BG
+    </div>
+    
+    <h1 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 800; color: #0f172a; margin-bottom: 0.5rem;">
+        Admin Dashboard
+    </h1>
+    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 2rem;">
+        Enter your password to access site &amp; blog management.
+    </p>
+
+    <?php if (!empty($loginError)): ?>
+        <div style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 0.75rem; border-radius: 8px; font-size: 0.88rem; margin-bottom: 1.25rem;">
+            ⚠️ <?php echo htmlspecialchars($loginError); ?>
+        </div>
+    <?php endif; ?>
+
+    <form method="POST" action="/admin.php">
+        <input type="hidden" name="action" value="login">
+        
+        <div class="form-group" style="text-align: left;">
+            <label for="admin-pass">Admin Password</label>
+            <input type="password" id="admin-pass" name="password" class="form-control" placeholder="Enter password" required autofocus>
+            <small style="color: #94a3b8; font-size: 0.78rem; display: block; margin-top: 0.4rem;">
+                Default password: <code>admin123</code> (Configurable in <code>.env</code>)
+            </small>
+        </div>
+
+        <button type="submit" class="btn-admin" style="width: 100%; padding: 0.9rem; font-size: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+            Sign In to Dashboard
+        </button>
+    </form>
+</div>
+
+</body>
+</html>
+<?php
+    exit;
+}
+
+// Authenticated Admin Dashboard Code
+$activeTab = $_GET['tab'] ?? 'dashboard';
 $settings = get_settings();
 $posts = get_posts();
 $contacts = get_contacts();
@@ -23,7 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'robotsTxt' => trim($_POST['robotsTxt'] ?? '')
         ];
         $settings = save_settings($updated);
-        $message = "Site & Monetization settings updated successfully!";
+        if (!empty($updated['robotsTxt'])) {
+            file_put_contents(BASE_DIR . '/robots.txt', $updated['robotsTxt']);
+        }
+        $message = "Site, Robots.txt & Monetization settings updated successfully!";
         $activeTab = 'settings';
     } elseif ($action === 'save_post') {
         $id = trim($_POST['id'] ?? '');
@@ -108,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Admin Dashboard - <?php echo htmlspecialchars($settings['siteName']); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/admin.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
 </head>
 <body class="admin-body">
 
@@ -148,9 +227,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </ul>
 
         <div class="sidebar-footer">
-            <a href="/" target="_blank" class="btn-sidebar-view">
+            <a href="/" target="_blank" class="btn-sidebar-view" style="margin-bottom: 0.5rem;">
                 <span>View Live Site</span>
                 <span>↗</span>
+            </a>
+            <a href="/admin.php?action=logout" class="btn-sidebar-view" style="background: #dc2626;">
+                <span>Sign Out</span>
+                <span>🚪</span>
             </a>
         </div>
     </aside>
@@ -228,7 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <?php if (empty($contacts)): ?>
-                    <p style="color: #64748b; padding: 1rem 0;">No contact form submissions received yet. Test by submitting a message on <a href="/contact.php" target="_blank">contact.php</a>.</p>
+                    <p style="color: #64748b; padding: 1rem 0;">No contact form submissions received yet. Test by submitting a message on <a href="/contact" target="_blank">/contact</a>.</p>
                 <?php else: ?>
                     <table class="admin-table">
                         <thead>
@@ -304,7 +387,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
 
-        <!-- SECTION 3: BLOG CRUD (Includes SEO Meta Fields) -->
+        <!-- SECTION 3: BLOG CRUD -->
         <section id="section-blog" style="<?php echo $activeTab !== 'blog' ? 'display: none;' : ''; ?>">
             <div class="admin-top-bar">
                 <h1>Blog Article Management (15 Articles &amp; SEO Meta Fields)</h1>
@@ -381,7 +464,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <td style="width: 350px;">
                                 <strong><?php echo htmlspecialchars($p['title']); ?></strong><br>
                                 <span style="font-size: 0.8rem; color: #2f6beb;">Meta Title: <?php echo htmlspecialchars($p['metaTitle'] ?? $p['title']); ?></span><br>
-                                <a href="/post.php?slug=<?php echo urlencode($p['slug'] ?? $p['id']); ?>" target="_blank" style="font-size: 0.8rem; color: #64748b;">/post.php?slug=<?php echo htmlspecialchars($p['slug'] ?? $p['id']); ?> ↗</a>
+                                <a href="/blog/<?php echo urlencode($p['slug'] ?? $p['id']); ?>" target="_blank" style="font-size: 0.8rem; color: #64748b;">/blog/<?php echo htmlspecialchars($p['slug'] ?? $p['id']); ?> ↗</a>
                             </td>
                             <td style="font-size: 0.88rem; color: #64748b;">
                                 <?php echo htmlspecialchars(substr($p['excerpt'] ?? $p['summary'] ?? '', 0, 100)); ?>...
@@ -406,7 +489,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </section>
 
-        <!-- SECTION 4: SETTINGS (Sitemap, Robots, Analytics, AdSense) -->
+        <!-- SECTION 4: SETTINGS -->
         <section id="section-settings" style="<?php echo $activeTab !== 'settings' ? 'display: none;' : ''; ?>">
             <div class="admin-top-bar">
                 <h1>Site, SEO &amp; Monetization Settings</h1>
@@ -446,17 +529,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <label for="googleAdsenseClientId">Google AdSense Publisher Client ID</label>
                             <input type="text" id="googleAdsenseClientId" name="googleAdsenseClientId" class="form-control" value="<?php echo htmlspecialchars($settings['googleAdsenseClientId'] ?? ''); ?>" placeholder="ca-pub-XXXXXXXXXXXXXXXX">
-                            <small style="color: #64748b; font-size: 0.82rem; display: block; margin-top: 0.3rem;">
-                                Enter your AdSense Publisher ID. When left blank, placeholder ad boxes are shown.
-                            </small>
                         </div>
 
                         <div class="form-group">
                             <label for="googleAnalyticsId">Google Analytics Measurement ID</label>
                             <input type="text" id="googleAnalyticsId" name="googleAnalyticsId" class="form-control" value="<?php echo htmlspecialchars($settings['googleAnalyticsId'] ?? ''); ?>" placeholder="G-XXXXXXXXXX">
-                            <small style="color: #64748b; font-size: 0.82rem; display: block; margin-top: 0.3rem;">
-                                Injects gtag.js script automatically across header templates.
-                            </small>
                         </div>
                     </div>
                 </div>
@@ -470,9 +547,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label>Dynamic XML Sitemap Status</label>
                         <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
                             <div>
-                                <strong>URL:</strong> <a href="/sitemap.php" target="_blank">/sitemap.php</a> (or <a href="/sitemap.xml" target="_blank">/sitemap.xml</a>)
+                                <strong>URL:</strong> <a href="/sitemap.xml" target="_blank">/sitemap.xml</a>
                             </div>
-                            <a href="/sitemap.php" target="_blank" class="btn-sidebar-view" style="background: var(--admin-primary);">Test Sitemap ↗</a>
+                            <a href="/sitemap.xml" target="_blank" class="btn-sidebar-view" style="background: var(--admin-primary);">Test Sitemap ↗</a>
                         </div>
                     </div>
 

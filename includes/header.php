@@ -12,7 +12,7 @@ $currentPage = $currentPage ?? 'home';
     <meta charset="UTF-8">
     <?php include BASE_DIR . '/includes/seo.php'; ?>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✂️</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="/public/favicon.svg">
 </head>
 <body>
 
@@ -25,9 +25,9 @@ $currentPage = $currentPage ?? 'home';
 
         <nav class="site-nav">
             <a href="/" class="nav-link <?php echo $currentPage === 'home' ? 'active' : ''; ?>">Remove Background</a>
-            <a href="/about.php" class="nav-link <?php echo $currentPage === 'about' ? 'active' : ''; ?>">About Us</a>
-            <a href="/blog.php" class="nav-link <?php echo $currentPage === 'blog' ? 'active' : ''; ?>">Blog &amp; Guides</a>
-            <a href="/contact.php" class="nav-link <?php echo $currentPage === 'contact' ? 'active' : ''; ?>">Contact</a>
+            <a href="/about" class="nav-link <?php echo $currentPage === 'about' ? 'active' : ''; ?>">About Us</a>
+            <a href="/blog" class="nav-link <?php echo $currentPage === 'blog' ? 'active' : ''; ?>">Blog &amp; Guides</a>
+            <a href="/contact" class="nav-link <?php echo $currentPage === 'contact' ? 'active' : ''; ?>">Contact</a>
             <a href="/#tool-section" class="nav-cta">Upload Image</a>
         </nav>
 

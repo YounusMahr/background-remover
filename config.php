@@ -28,7 +28,7 @@ function load_env($file = ENV_FILE) {
             list($key, $value) = explode('=', $line, 2);
             $key = trim($key);
             $value = trim($value);
-            $value = trim($value, '"\''); // Remove quotes
+            $value = trim($value, '"\'');
             
             if (!array_key_exists($key, $_SERVER) && !array_key_exists($key, $_ENV)) {
                 putenv("{$key}={$value}");
@@ -69,7 +69,6 @@ function get_db_connection() {
         }
         return $pdo;
     } catch (PDOException $e) {
-        // Fallback gracefully if database server is not reachable
         error_log("Database connection failed: " . $e->getMessage());
         return null;
     }
@@ -189,7 +188,14 @@ function delete_contact($id) {
 }
 
 /**
- * Helper to build clean or fallback URLs
+ * Helper to build clean post URLs: /blog/{slug}
+ */
+function post_url($slug) {
+    return '/blog/' . ltrim($slug, '/');
+}
+
+/**
+ * Helper to build clean site URLs
  */
 function site_url($path = '') {
     $settings = get_settings();

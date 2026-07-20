@@ -8,6 +8,11 @@ $currentPage = "blog";
 $posts = get_posts();
 $selectedTag = trim($_GET['tag'] ?? '');
 
+$canonicalUrl = rtrim(($settings = get_settings())['siteUrl'], '/') . '/blog';
+if (!empty($selectedTag)) {
+    $robotsMeta = 'noindex, follow';
+}
+
 if (!empty($selectedTag)) {
     $posts = array_filter($posts, function($p) use ($selectedTag) {
         return in_array($selectedTag, $p['tags'] ?? []);
@@ -26,7 +31,7 @@ include BASE_DIR . '/includes/header.php';
             <div style="margin-bottom: 2rem;">
                 <span style="font-weight: 600;">Filtering by Tag:</span> 
                 <span class="blog-tag"><?php echo htmlspecialchars($selectedTag); ?></span>
-                <a href="/blog.php" style="margin-left: 0.8rem; font-size: 0.88rem; text-decoration: underline;">Clear Filter</a>
+                <a href="/blog" style="margin-left: 0.8rem; font-size: 0.88rem; text-decoration: underline;">Clear Filter</a>
             </div>
         <?php endif; ?>
     </div>
@@ -40,22 +45,22 @@ include BASE_DIR . '/includes/header.php';
             <article class="blog-card">
                 <div class="blog-card-body">
                     <?php if (!empty($post['tags'][0])): ?>
-                        <a href="/blog.php?tag=<?php echo urlencode($post['tags'][0]); ?>" class="blog-tag">
+                        <a href="/blog?tag=<?php echo urlencode($post['tags'][0]); ?>" class="blog-tag">
                             <?php echo htmlspecialchars($post['tags'][0]); ?>
                         </a>
                     <?php endif; ?>
 
                     <h2>
-                        <a href="/post.php?slug=<?php echo urlencode($post['slug'] ?? $post['id']); ?>">
+                        <a href="/blog/<?php echo urlencode($post['slug'] ?? $post['id']); ?>">
                             <?php echo htmlspecialchars($post['title']); ?>
                         </a>
                     </h2>
 
-                    <p><?php echo htmlspecialchars($post['summary']); ?></p>
+                    <p><?php echo htmlspecialchars($post['excerpt'] ?? $post['summary']); ?></p>
 
                     <div class="blog-meta">
                         <span>By <?php echo htmlspecialchars($post['author'] ?? 'ClearBG Pro Team'); ?></span>
-                        <span><?php echo htmlspecialchars($post['readTime'] ?? '5 min read'); ?></span>
+                        <span><?php echo htmlspecialchars($post['readTime'] ?? '8 min read'); ?></span>
                     </div>
                 </div>
             </article>

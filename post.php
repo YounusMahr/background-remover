@@ -11,6 +11,7 @@ if (!$post) {
 
 $pageTitle = htmlspecialchars($post['metaTitle'] ?? ($post['title'] . " - ClearBG Pro"));
 $pageDesc = htmlspecialchars($post['metaDescription'] ?? ($post['excerpt'] ?? $post['summary']));
+$canonicalUrl = site_url('blog/' . urlencode($post['slug'] ?? $post['id']));
 $ogType = "article";
 $currentPage = "blog";
 
@@ -26,7 +27,7 @@ $customSchema = [
     'datePublished' => $post['createdAt'] ?? '2026-07-18',
     'mainEntityOfPage' => [
         '@type' => 'WebPage',
-        '@id' => site_url('post.php?slug=' . urlencode($post['slug'] ?? $post['id']))
+        '@id' => $canonicalUrl
     ]
 ];
 
@@ -38,7 +39,7 @@ include BASE_DIR . '/includes/header.php';
         <?php if (!empty($post['tags'])): ?>
             <div style="margin-bottom: 1rem;">
                 <?php foreach ($post['tags'] as $tag): ?>
-                    <a href="/blog.php?tag=<?php echo urlencode($tag); ?>" class="blog-tag">
+                    <a href="/blog?tag=<?php echo urlencode($tag); ?>" class="blog-tag">
                         <?php echo htmlspecialchars($tag); ?>
                     </a>
                 <?php endforeach; ?>
@@ -64,7 +65,7 @@ include BASE_DIR . '/includes/header.php';
     <?php echo render_adsense('post-footer-slot', 'auto'); ?>
 
     <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
-        <a href="/blog.php" style="font-weight: 600;">← Back to all articles</a>
+        <a href="/blog" style="font-weight: 600;">← Back to all articles</a>
         <a href="/#tool-section" class="nav-cta">Try Background Remover Free</a>
     </div>
 </div>

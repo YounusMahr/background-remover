@@ -1,6 +1,15 @@
 User-agent: *
+Allow: /
+
+# Block admin, config and data directories from indexing
 Disallow: /admin.php
 Disallow: /config.php
+Disallow: /page.php
 Disallow: /data/
+Disallow: /includes/
 
-Sitemap: https://bgcleaner.online/sitemap.php
+# Allow Google AdSense crawler full access (required for ad serving)
+User-agent: Mediapartners-Google
+Allow: /
+
+Sitemap: https://bgcleaner.online/sitemap.xml
