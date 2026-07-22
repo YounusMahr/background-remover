@@ -40,12 +40,25 @@ include BASE_DIR . '/includes/header.php';
         <p>Like any other website, ClearBG Pro uses 'cookies'. These cookies are used to store information including visitors' preferences, local storage cache of WebAssembly neural network weights, and the pages on the website that the visitor accessed. The information is used to optimize the users' experience by customizing our web page content based on visitors' browser type and device capabilities.</p>
 
         <h2>4. Google AdSense &amp; Third-Party Advertising Vendors</h2>
-        <p>Google is a third-party vendor on our site. It uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to www.website.com and other sites on the internet.</p>
+        <p>ClearBG Pro uses Google AdSense and third-party advertising partners to serve advertisements when you visit our website. These companies may use cookies, web beacons, and similar tracking technologies to collect information about your visits to this and other websites in order to provide targeted advertisements about goods and services of interest to you.</p>
+        
+        <h3>A. Google AdSense Cookie Notice &amp; DART Cookies</h3>
+        <p>Google is a third-party vendor on our site. It uses cookies, including DART cookies and advertising identifiers, to serve ads to our site visitors based upon their visits to <a href="https://bgcleaner.online">https://bgcleaner.online</a> and other sites across the Internet.</p>
         <ul>
-            <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites.</li>
-            <li>Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
-            <li>Users may opt-out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>.</li>
+            <li>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to our website or other websites.</li>
+            <li>Google's use of advertising cookies enables it and its partners to serve ads to users based on their visit to our site and/or other sites on the Internet.</li>
+            <li>Third-party ad servers or ad networks use technology in their respective advertisements and links that appear on ClearBG Pro, which are sent directly to your browser. They automatically receive your IP address when this occurs.</li>
         </ul>
+
+        <h3>B. Third-Party Advertising Opt-Out Clauses</h3>
+        <p>Users have the right and ability to opt out of personalized advertising and third-party ad tracking cookies at any time using the following resources:</p>
+        <ul>
+            <li><strong>Google Ads Settings:</strong> Users may opt out of personalized Google advertising by visiting <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ads Settings</a>.</li>
+            <li><strong>Digital Advertising Alliance (DAA):</strong> You can opt out of third-party vendor use of cookies for personalized advertising by visiting the <a href="https://optout.aboutads.info/" target="_blank" rel="noopener">DAA Consumer Choice Page</a> or <a href="https://www.aboutads.info/choices" target="_blank" rel="noopener">www.aboutads.info</a>.</li>
+            <li><strong>Network Advertising Initiative (NAI):</strong> You can opt out of targeted advertising from NAI member ad networks by visiting the <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener">NAI Opt-Out Page</a>.</li>
+            <li><strong>European Interactive Digital Advertising Alliance (EDAA):</strong> Visitors in Europe can manage personalized advertising preferences at <a href="https://www.youronlinechoices.com/" target="_blank" rel="noopener">Your Online Choices</a>.</li>
+        </ul>
+        <p>For more detailed information on how we manage local storage and browser cookies, please refer to our <a href="/cookies">Cookie Policy</a>.</p>
 
         <h2>5. GDPR Data Protection Rights</h2>
         <p>Under the General Data Protection Regulation (GDPR), users are entitled to fundamental data rights:</p>

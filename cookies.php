@@ -30,10 +30,14 @@ include BASE_DIR . '/includes/header.php';
         <p>To enable fast client-side AI background removal, your browser caches neural network model weights (~8MB to 15MB) in local browser memory (IndexedDB/LocalStorage). This allows subsequent image processing requests to run instantly without re-downloading model files, saving your bandwidth.</p>
 
         <h3>2. Third-Party Advertising Cookies (Google AdSense)</h3>
-        <p>We use third-party vendors, including Google AdSense, to serve advertisements when you visit our website. These companies may use cookies to serve ads based on your prior visits to our website or other sites on the Internet.</p>
+        <p>We use third-party vendors, including Google AdSense, to serve advertisements when you visit our website. These companies may use cookies, DART cookies, and web beacons to serve ads based on your prior visits to our website or other sites on the Internet.</p>
+        <ul>
+            <li>To opt out of personalized Google advertising, visit <a href="https://adssettings.google.com" target="_blank" rel="noopener">Google Ads Settings</a>.</li>
+            <li>To opt out of third-party vendor cookies for personalized advertising, visit <a href="https://optout.aboutads.info/" target="_blank" rel="noopener">DAA Opt-Out Page</a> or <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener">NAI Opt-Out Page</a>.</li>
+        </ul>
 
         <h2>Disabling &amp; Managing Cookies</h2>
-        <p>You can prevent the setting of cookies by adjusting the settings on your web browser (see your browser Help section for instructions). Be aware that disabling cookies may affect the performance or functionality of certain features of this and other websites.</p>
+        <p>You can prevent the setting of cookies by adjusting the settings on your web browser (see your browser Help section for instructions). Be aware that disabling cookies may affect the performance or functionality of certain features of this and other websites. Learn more in our full <a href="/privacy">Privacy Policy</a>.</p>
 
         <h2>More Information</h2>
         <p>If you are looking for more information, you can contact us through our preferred contact method at <a href="mailto:support@bgcleaner.online">support@bgcleaner.online</a>.</p>
