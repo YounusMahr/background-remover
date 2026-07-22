@@ -210,7 +210,43 @@ a:hover {
 }
 
 .hero-badge-item svg {
-  color: #10b981;
+  color: var(--primary);
+}
+
+/* ==========================================================================
+   Brand Icon Badges (Consistent Logo-Matched Aesthetics)
+   ========================================================================== */
+.feature-icon-badge {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--primary-light), #e0ebff);
+  color: var(--primary);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 4px 12px rgba(47, 107, 235, 0.12);
+  transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon-badge {
+  background: linear-gradient(135deg, var(--primary), #3b82f6);
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(47, 107, 235, 0.3);
+}
+
+.icon-badge-inline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 10px;
+  flex-shrink: 0;
 }
 
 /* ==========================================================================

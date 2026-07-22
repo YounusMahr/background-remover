@@ -46,8 +46,9 @@ include BASE_DIR . '/includes/header.php';
         <?php else: ?>
 
             <?php if (!empty($errorMsg)): ?>
-                <div style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 1rem 1.5rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-weight: 500;">
-                    ⚠️ <?php echo htmlspecialchars($errorMsg); ?>
+                <div style="background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; padding: 1rem 1.5rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                    <span><?php echo htmlspecialchars($errorMsg); ?></span>
                 </div>
             <?php endif; ?>
 
@@ -57,17 +58,32 @@ include BASE_DIR . '/includes/header.php';
                     <p>For support, API inquiries, or feature suggestions, feel free to contact us through any of the channels below:</p>
 
                     <div style="margin-top: 1.5rem;">
-                        <div style="margin-bottom: 1.25rem;">
-                            <strong>📧 Support Email:</strong><br>
-                            <a href="mailto:support@bgcleaner.online" style="font-size: 1.05rem;">support@bgcleaner.online</a>
+                        <div style="margin-bottom: 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start;">
+                            <div class="icon-badge-inline">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Support Email:</strong><br>
+                                <a href="mailto:support@bgcleaner.online" style="font-size: 1.05rem;">support@bgcleaner.online</a>
+                            </div>
                         </div>
-                        <div style="margin-bottom: 1.25rem;">
-                            <strong>🌐 Website:</strong><br>
-                            <a href="https://bgcleaner.online" target="_blank" style="font-size: 1.05rem;">https://bgcleaner.online</a>
+                        <div style="margin-bottom: 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start;">
+                            <div class="icon-badge-inline">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Website:</strong><br>
+                                <a href="https://bgcleaner.online" target="_blank" style="font-size: 1.05rem;">https://bgcleaner.online</a>
+                            </div>
                         </div>
-                        <div style="margin-bottom: 1.25rem;">
-                            <strong>⚡ Average Response Time:</strong><br>
-                            <span style="color: var(--text-muted);">Within 24 Hours</span>
+                        <div style="margin-bottom: 1.25rem; display: flex; gap: 0.75rem; align-items: flex-start;">
+                            <div class="icon-badge-inline">
+                                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <strong>Average Response Time:</strong><br>
+                                <span style="color: var(--text-muted);">Within 24 Hours</span>
+                            </div>
                         </div>
                     </div>
                 </div>

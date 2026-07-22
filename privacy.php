@@ -21,7 +21,10 @@ include BASE_DIR . '/includes/header.php';
         <p>At <strong>ClearBG Pro</strong> (accessible from <a href="https://bgcleaner.online">https://bgcleaner.online</a>), protecting the privacy of our visitors is one of our main priorities. This Privacy Policy document details the types of information collected and recorded by ClearBG Pro and how we protect user data.</p>
 
         <div style="background: var(--primary-light); border-left: 4px solid var(--primary); padding: 1.25rem 1.5rem; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin: 2rem 0;">
-            <h3 style="margin-top: 0; color: var(--primary);">🔒 100% Client-Side Processing Guarantee</h3>
+            <h3 style="margin-top: 0; color: var(--primary); display: flex; align-items: center; gap: 0.6rem;">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Client-Side Processing Guarantee</span>
+            </h3>
             <p style="margin-bottom: 0;">ClearBG Pro utilizes browser-based WebAssembly (WASM) neural networks. All image background removal occurs directly inside your local browser thread. <strong>Your photos and graphics are never uploaded, stored, or processed on any remote server.</strong></p>
         </div>
 

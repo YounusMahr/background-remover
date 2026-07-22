@@ -33,19 +33,31 @@ include BASE_DIR . '/includes/header.php';
         <h2>Who Uses ClearBG Pro?</h2>
         <div class="features-grid" style="margin: 2rem 0; grid-template-columns: repeat(2, 1fr);">
             <div class="feature-card">
-                <h3>🛍️ E-commerce Merchants</h3>
+                <div class="feature-icon-badge">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                </div>
+                <h3>E-commerce Merchants</h3>
                 <p>Create clean white background listings for Amazon, Shopify, and eBay in seconds.</p>
             </div>
             <div class="feature-card">
-                <h3>🎨 Graphic Designers</h3>
+                <div class="feature-icon-badge">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                </div>
+                <h3>Graphic Designers</h3>
                 <p>Isolate subjects, produce transparent PNG assets, and compose promotional banners.</p>
             </div>
             <div class="feature-card">
-                <h3>📸 Photographers</h3>
+                <div class="feature-icon-badge">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </div>
+                <h3>Photographers</h3>
                 <p>Prepare headshots and portrait cutouts quickly without subscription fees.</p>
             </div>
             <div class="feature-card">
-                <h3>🔒 Privacy Advocates</h3>
+                <div class="feature-icon-badge">
+                    <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h3>Privacy Advocates</h3>
                 <p>Edit personal identification or proprietary graphics with 100% data confidentiality.</p>
             </div>
         </div>
