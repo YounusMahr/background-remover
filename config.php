@@ -215,15 +215,45 @@ function site_url($path = '') {
 }
 
 /**
- * AdSense Component Renderer (Disabled for now)
+ * AdSense Component Renderer
  */
 function render_adsense($slot = 'default', $format = 'auto') {
-    return '';
+    $settings = get_settings();
+    $clientId = $settings['googleAdsenseClientId'] ?? '';
+    if (empty($clientId)) {
+        return '';
+    }
+    $clientAttr = $clientId;
+    if (strpos($clientAttr, 'ca-') !== 0) {
+        $clientAttr = 'ca-' . $clientAttr;
+    }
+    return '
+    <div style="margin: 20px 0; text-align: center; overflow: hidden;">
+        <!-- ClearBG Ad Unit -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="' . htmlspecialchars($clientAttr) . '"
+             data-ad-slot="' . htmlspecialchars($slot) . '"
+             data-ad-format="' . htmlspecialchars($format) . '"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>';
 }
 
 /**
- * AdSense Header Loader (Disabled for now)
+ * AdSense Header Loader
  */
 function render_adsense_head() {
-    return '';
+    $settings = get_settings();
+    $clientId = $settings['googleAdsenseClientId'] ?? '';
+    if (empty($clientId)) {
+        return '';
+    }
+    $clientAttr = $clientId;
+    if (strpos($clientAttr, 'ca-') !== 0) {
+        $clientAttr = 'ca-' . $clientAttr;
+    }
+    return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' . htmlspecialchars($clientAttr) . '" crossorigin="anonymous"></script>';
 }

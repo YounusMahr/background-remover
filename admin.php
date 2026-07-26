@@ -103,7 +103,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!empty($updated['robotsTxt'])) {
             file_put_contents(BASE_DIR . '/robots.txt', $updated['robotsTxt']);
         }
-        $message = "Site, Robots.txt & Monetization settings updated successfully!";
+        // Dynamically regenerate ads.txt based on AdSense Client ID
+        $adsTextContent = "# Google AdSense Publisher Authorization File\n";
+        if (!empty($updated['googleAdsenseClientId'])) {
+            $pubId = preg_replace('/^ca-/', '', $updated['googleAdsenseClientId']);
+            $adsTextContent .= "google.com, {$pubId}, DIRECT, f08c47fec0942fa0\n";
+        } else {
+            $adsTextContent .= "# Replace pub-0000000000000000 with your actual publisher ID in Google AdSense console\n";
+            $adsTextContent .= "google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0\n";
+        }
+        file_put_contents(BASE_DIR . '/ads.txt', $adsTextContent);
+
+        $message = "Site, Robots.txt, ads.txt & Monetization settings updated successfully!";
         $activeTab = 'settings';
     } elseif ($action === 'save_post') {
         $id = trim($_POST['id'] ?? '');

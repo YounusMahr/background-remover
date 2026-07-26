@@ -1,3 +1,2 @@
 # Google AdSense Publisher Authorization File
-# Replace pub-0000000000000000 with your actual publisher ID in Google AdSense console
-google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-1462754459005065, DIRECT, f08c47fec0942fa0
