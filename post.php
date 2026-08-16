@@ -63,6 +63,7 @@ include BASE_DIR . '/includes/header.php';
 
     <!-- Bottom Article AdSense Slot -->
     <?php echo render_adsense('post-footer-slot', 'auto'); ?>
+    <?php echo render_cpm_native_banner(); ?>
 
     <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
         <a href="/blog" style="font-weight: 600;">← Back to all articles</a>

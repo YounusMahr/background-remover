@@ -1043,3 +1043,78 @@ a:hover {
   }
 }
 
+/* ==========================================================================
+   Monetization & Ads CSS Layouts
+   ========================================================================== */
+
+/* Skyscraper Rails (desktop only) */
+.sky-rail {
+  position: fixed;
+  top: 100px;
+  width: 160px;
+  z-index: 90;
+  display: none; /* Hidden by default on tablet & mobile */
+  background: transparent;
+}
+
+.left-rail {
+  left: calc(50% - 620px - 180px); /* Centers relative to the 1240px container */
+}
+
+.right-rail {
+  right: calc(50% - 620px - 180px);
+}
+
+@media (min-width: 1560px) {
+  .sky-rail {
+    display: block;
+  }
+}
+
+/* Premium Navbar sponsored link */
+.nav-link-premium {
+  color: #f59e0b !important; /* Gold */
+  font-weight: 700 !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: relative;
+  transition: var(--transition);
+}
+
+.nav-link-premium:hover {
+  color: #d97706 !important;
+  transform: translateY(-1px);
+}
+
+/* Sidebar sponsored action button */
+.sponsored-link {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary) !important;
+  text-align: center;
+  display: block;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  border: 1.5px dashed var(--primary);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.sponsored-link:hover {
+  background: var(--primary);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+  border-style: solid;
+}
+
+/* 5-Column Footer Grid Desktop Override */
+@media (min-width: 993px) {
+  .footer-grid {
+    grid-template-columns: 2fr repeat(4, 1fr) !important;
+  }
+}
+

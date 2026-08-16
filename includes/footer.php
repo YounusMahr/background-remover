@@ -47,14 +47,31 @@ $footerTagline = htmlspecialchars($settings['footerTagline'] ?? '100% Private cl
                     <li><a href="/contact">Contact Us</a></li>
                 </ul>
             </div>
+
+            <div class="footer-col">
+                <h4>Partner Tools</h4>
+                <ul class="footer-links">
+                    <li><a href="https://www.effectivecpmnetwork.com/gsyrzt51ha?key=e5f730e78662f544ed4d9d52a201d8e9" target="_blank" rel="noopener sponsored" style="color: var(--primary); font-weight: 600;">★ AI Photo Upscaler</a></li>
+                    <li><a href="https://www.effectivecpmnetwork.com/gsyrzt51ha?key=e5f730e78662f544ed4d9d52a201d8e9" target="_blank" rel="noopener sponsored" style="color: var(--primary); font-weight: 600;">★ Vector SVG Converter</a></li>
+                    <li><a href="https://www.effectivecpmnetwork.com/gsyrzt51ha?key=e5f730e78662f544ed4d9d52a201d8e9" target="_blank" rel="noopener sponsored" style="color: var(--primary); font-weight: 600;">★ Background Blur AI</a></li>
+                </ul>
+            </div>
         </div>
 
         <div class="footer-bottom">
             <div>&copy; <?php echo date('Y'); ?> <?php echo $siteName; ?>. All rights reserved. 100% Private Client-Side AI.</div>
-            <div>Designed for speed, SEO &amp; AdSense monetizability.</div>
+            <div>Designed for speed, SEO &amp; CPM monetizability.</div>
         </div>
     </div>
 </footer>
+
+<!-- Right Skyscraper Rail (160x300) for Viewports >= 1560px -->
+<div class="sky-rail right-rail">
+    <?php echo render_cpm_fixed_banner('54a54805b1b3d85ee55ccc3069b909b9', 160, 300); ?>
+</div>
+
+<!-- Social Bar Ad for bgcleaner.online -->
+<script src="https://pl30873280.effectivecpmnetwork.com/74/64/b6/7464b60087c89c482af40208c95e6e2d.js"></script>
 
 </body>
 </html>

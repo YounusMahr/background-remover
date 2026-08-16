@@ -142,7 +142,15 @@ include BASE_DIR . '/includes/header.php';
                     <span>Download Image</span>
                 </button>
                 <button id="btn-restart" class="btn-restart">Upload Another Image</button>
+                
+                <!-- Sponsored Smartlink Download Offer -->
+                <a href="https://www.effectivecpmnetwork.com/gsyrzt51ha?key=e5f730e78662f544ed4d9d52a201d8e9" target="_blank" rel="noopener sponsored" class="sponsored-link">
+                    ⚡ Download HD (Alternative Server)
+                </a>
             </div>
+
+            <!-- Sidebar CPM Banner (300x250) -->
+            <?php echo render_cpm_fixed_banner('ea33c6f0abf60ebc3ecd1c1b714521ae', 300, 250); ?>
         </div>
     </div>
 </section>
@@ -210,6 +218,11 @@ include BASE_DIR . '/includes/header.php';
 <!-- AdSense Mid Content Banner -->
 <div class="container">
     <?php echo render_adsense('home-mid-banner', 'auto'); ?>
+</div>
+
+<!-- CPM Native Banner Ad -->
+<div class="container">
+    <?php echo render_cpm_native_banner(); ?>
 </div>
 
 <!-- FAQ Section -->

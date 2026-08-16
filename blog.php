@@ -68,6 +68,7 @@ include BASE_DIR . '/includes/header.php';
     </div>
 
     <?php echo render_adsense('blog-bottom', 'auto'); ?>
+    <?php echo render_cpm_native_banner(); ?>
 </div>
 
 <?php include BASE_DIR . '/includes/footer.php'; ?>

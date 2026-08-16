@@ -29,8 +29,16 @@ $currentPage = $currentPage ?? 'home';
             });
         }
     </script>
+    
+    <!-- Popunder Ad for bgcleaner.online -->
+    <script src="https://pl30873277.effectivecpmnetwork.com/59/88/a8/5988a819869c47db3397f7f54f228b77.js"></script>
 </head>
 <body>
+
+<!-- Left Skyscraper Rail (160x600) for Viewports >= 1560px -->
+<div class="sky-rail left-rail">
+    <?php echo render_cpm_fixed_banner('f54e6eac662603d4c0063519f55f02d1', 160, 600); ?>
+</div>
 
 <header class="site-header">
     <div class="container header-inner">
@@ -44,6 +52,7 @@ $currentPage = $currentPage ?? 'home';
             <a href="/about" class="nav-link <?php echo $currentPage === 'about' ? 'active' : ''; ?>">About Us</a>
             <a href="/blog" class="nav-link <?php echo $currentPage === 'blog' ? 'active' : ''; ?>">Blog &amp; Guides</a>
             <a href="/contact" class="nav-link <?php echo $currentPage === 'contact' ? 'active' : ''; ?>">Contact</a>
+            <a href="https://www.effectivecpmnetwork.com/gsyrzt51ha?key=e5f730e78662f544ed4d9d52a201d8e9" target="_blank" rel="noopener sponsored" class="nav-link nav-link-premium">★ Premium HD Editor</a>
             <a href="/#tool-section" class="nav-cta">Upload Image</a>
         </nav>
 

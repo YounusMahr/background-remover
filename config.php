@@ -215,45 +215,82 @@ function site_url($path = '') {
 }
 
 /**
- * AdSense Component Renderer
+ * CPM Responsive Banner Renderer (728x90 desktop, 468x60 tablet, 300x250 mobile)
  */
-function render_adsense($slot = 'default', $format = 'auto') {
-    $settings = get_settings();
-    $clientId = $settings['googleAdsenseClientId'] ?? '';
-    if (empty($clientId)) {
-        return '';
-    }
-    $clientAttr = $clientId;
-    if (strpos($clientAttr, 'ca-') !== 0) {
-        $clientAttr = 'ca-' . $clientAttr;
-    }
+function render_cpm_responsive_banner() {
     return '
-    <div style="margin: 20px 0; text-align: center; overflow: hidden;">
-        <!-- ClearBG Ad Unit -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="' . htmlspecialchars($clientAttr) . '"
-             data-ad-slot="' . htmlspecialchars($slot) . '"
-             data-ad-format="' . htmlspecialchars($format) . '"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
+    <div class="cpm-ad-wrapper responsive-banner" style="margin: 20px auto; text-align: center; max-width: 100%; overflow: hidden;">
+        <span class="ad-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.08em; margin-bottom: 0.4rem;">Advertisement</span>
+        <script type="text/javascript">
+            (function() {
+                var w = window.innerWidth;
+                var key = "";
+                var adW = 300, adH = 250;
+                if (w >= 768) {
+                    key = "badbc92dfbd667d75332930382afb8c4";
+                    adW = 728; adH = 90;
+                } else if (w >= 480) {
+                    key = "38420b59e629cb8f209c7bd6eadcec06";
+                    adW = 468; adH = 60;
+                } else {
+                    key = "ea33c6f0abf60ebc3ecd1c1b714521ae";
+                    adW = 300; adH = 250;
+                }
+                window.atOptions = {
+                    "key" : key,
+                    "format" : "iframe",
+                    "height" : adH,
+                    "width" : adW,
+                    "params" : {}
+                };
+                document.write(\'<script type="text/javascript" src="https://www.highperformanceformat.com/\' + key + \'/invoke.js"><\\/script>\');
+            })();
         </script>
     </div>';
 }
 
 /**
- * AdSense Header Loader
+ * CPM Fixed Banner Renderer (e.g. for sidebar)
+ */
+function render_cpm_fixed_banner($key, $width, $height) {
+    return '
+    <div class="cpm-ad-wrapper fixed-banner" style="margin: 15px auto; text-align: center; max-width: 100%; overflow: hidden;">
+        <span class="ad-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.08em; margin-bottom: 0.4rem;">Sponsored</span>
+        <script type="text/javascript">
+            atOptions = {
+                \'key\' : \'' . $key . '\',
+                \'format\' : \'iframe\',
+                \'height\' : ' . $height . ',
+                \'width\' : ' . $width . ',
+                \'params\' : {}
+            };
+        </script>
+        <script type="text/javascript" src="https://www.highperformanceformat.com/' . $key . '/invoke.js"></script>
+    </div>';
+}
+
+/**
+ * CPM Native Banner Renderer
+ */
+function render_cpm_native_banner() {
+    return '
+    <div class="cpm-ad-wrapper native-banner" style="margin: 25px auto; text-align: center; max-width: 100%; min-height: 100px;">
+        <span class="ad-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); letter-spacing: 0.08em; margin-bottom: 0.4rem;">Recommended For You</span>
+        <script async="async" data-cfasync="false" src="https://pl30873278.effectivecpmnetwork.com/f83b2ea96e903e0e857d46390de5ef3d/invoke.js"></script>
+        <div id="container-f83b2ea96e903e0e857d46390de5ef3d"></div>
+    </div>';
+}
+
+/**
+ * AdSense Component Renderer (compatibility fallback to CPM ad)
+ */
+function render_adsense($slot = 'default', $format = 'auto') {
+    return render_cpm_responsive_banner();
+}
+
+/**
+ * AdSense Header Loader (compatibility fallback - not needed for CPM network)
  */
 function render_adsense_head() {
-    $settings = get_settings();
-    $clientId = $settings['googleAdsenseClientId'] ?? '';
-    if (empty($clientId)) {
-        return '';
-    }
-    $clientAttr = $clientId;
-    if (strpos($clientAttr, 'ca-') !== 0) {
-        $clientAttr = 'ca-' . $clientAttr;
-    }
-    return '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' . htmlspecialchars($clientAttr) . '" crossorigin="anonymous"></script>';
+    return '';
 }
