@@ -35,11 +35,6 @@ $currentPage = $currentPage ?? 'home';
 </head>
 <body>
 
-<!-- Left Skyscraper Rail (160x600) for Viewports >= 1560px -->
-<div class="sky-rail left-rail">
-    <?php echo render_cpm_fixed_banner('f54e6eac662603d4c0063519f55f02d1', 160, 600); ?>
-</div>
-
 <header class="site-header">
     <div class="container header-inner">
         <a href="/" class="site-logo">
@@ -61,3 +56,8 @@ $currentPage = $currentPage ?? 'home';
         </button>
     </div>
 </header>
+
+<!-- Global Top Horizontal Banner Ad -->
+<div class="container top-global-ad" style="margin-top: 1.5rem; margin-bottom: 0.5rem; text-align: center;">
+    <?php echo render_cpm_responsive_banner(); ?>
+</div>

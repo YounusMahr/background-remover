@@ -56,6 +56,9 @@ $footerTagline = htmlspecialchars($settings['footerTagline'] ?? '100% Private cl
                     <li><a href="https://www.effectivecpmnetwork.com/gsyrzt51ha?key=e5f730e78662f544ed4d9d52a201d8e9" target="_blank" rel="noopener sponsored" style="color: var(--primary); font-weight: 600;">★ Background Blur AI</a></li>
                 </ul>
             </div>
+        <!-- Footer Horizontal Ad Banner -->
+        <div class="footer-ad-container" style="margin: 20px auto 10px; text-align: center; max-width: 100%; overflow: hidden;">
+            <?php echo render_cpm_responsive_banner(); ?>
         </div>
 
         <div class="footer-bottom">
@@ -64,11 +67,6 @@ $footerTagline = htmlspecialchars($settings['footerTagline'] ?? '100% Private cl
         </div>
     </div>
 </footer>
-
-<!-- Right Skyscraper Rail (160x300) for Viewports >= 1560px -->
-<div class="sky-rail right-rail">
-    <?php echo render_cpm_fixed_banner('54a54805b1b3d85ee55ccc3069b909b9', 160, 300); ?>
-</div>
 
 <!-- Social Bar Ad for bgcleaner.online -->
 <script src="https://pl30873280.effectivecpmnetwork.com/74/64/b6/7464b60087c89c482af40208c95e6e2d.js"></script>
