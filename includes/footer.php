@@ -71,5 +71,8 @@ $footerTagline = htmlspecialchars($settings['footerTagline'] ?? '100% Private cl
 <!-- Social Bar Ad for bgcleaner.online -->
 <script src="https://pl30873280.effectivecpmnetwork.com/74/64/b6/7464b60087c89c482af40208c95e6e2d.js"></script>
 
+<!-- PostFont Dynamic Floating Draggable Video Player -->
+<script src="https://postfont.online/public/floating-player.js" defer></script>
+
 </body>
 </html>
